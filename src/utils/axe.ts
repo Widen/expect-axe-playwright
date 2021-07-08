@@ -1,6 +1,6 @@
 import fs from 'fs'
-import type { Page } from '@playwright/test'
-import { AxePlugin, AxeResults, RunOptions } from 'axe-core'
+import type { ElementHandle, Frame, Page } from '@playwright/test'
+import type { AxePlugin, AxeResults, RunOptions } from 'axe-core'
 
 declare global {
   interface Window {
@@ -11,9 +11,9 @@ declare global {
 /**
  * Injects the axe-core script into the page if it hasn't already been injected.
  */
-export async function injectAxe(page: Page): Promise<void> {
+export async function injectAxe(frame: Page | Frame) {
   // Exit early if Axe has already been injected.
-  if (await page.evaluate(() => !!window.axe)) {
+  if (await frame.evaluate(() => !!window.axe)) {
     return
   }
 
@@ -22,18 +22,16 @@ export async function injectAxe(page: Page): Promise<void> {
   const axe = await fs.promises.readFile(filePath, 'utf-8')
 
   // Inject the script into the page
-  await page.evaluate((axe) => window.eval(axe), axe)
+  await frame.evaluate((axe) => window.eval(axe), axe)
 }
 
 /**
- * Runs axe on the page. The script must already be injected using `injectAxe`.
+ * Runs axe on an element handle. The script must already be injected
+ * using `injectAxe`.
  */
-export function runAxe(
-  page: Page,
-  options: RunOptions = {}
-): Promise<AxeResults> {
-  return page.evaluate<AxeResults>(
-    (options) => window.axe.run(window.document, options),
+export function runAxe(element: ElementHandle, options: RunOptions = {}) {
+  return element.evaluate<AxeResults>(
+    (el, options) => window.axe.run(el, options),
     options
   )
 }

@@ -1,5 +1,6 @@
 interface AxePlaywrightMatchers<R> {
   toBeAccessible(): Promise<R>
+  toBeAccessible(selector: string): Promise<R>
 }
 
 declare global {
