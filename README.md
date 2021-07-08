@@ -21,8 +21,71 @@ yarn add expect-axe-playwright
 
 ## Usage
 
-TODO
+### With [Playwright test runner](https://playwright.dev/docs/test-intro/)
 
-## Releasing
+```ts
+// playwright.config.ts
+import { expect } from '@playwright/test'
+import { matchers } from 'expect-axe-playwright'
 
-This extension uses [semantic-release](https://github.com/semantic-release/semantic-release) to automatically increment the release based on the commit message. Checkout [their docs](https://github.com/semantic-release/semantic-release#how-does-it-work) for more details.
+expect.extend(matchers)
+```
+
+### With Jest
+
+```js
+// setup-jest.js
+import { matchers } from 'expect-axe-playwright'
+
+expect.extend(matchers)
+```
+
+## Why do I need it?
+
+This project was inspired by [axe-playwright](https://github.com/abhinaba-ghosh/axe-playwright) which did a great job of integrating the [axe-core](https://github.com/dequelabs/axe-core) library with some simple wrapper functions. However, the API is not as elegant for testing as would be preferred. That's where `expect-axe-playwright` comes to the rescue with the following features.
+
+- Direct integration with the `expect` API for simplicity and better error messaging.
+- Automatic Axe script injection.
+- Works with pages, frames, and element handles.
+- Automatic promise and frame resolution.
+
+Here are a few examples:
+
+```js
+await expect(page).toBeAccessible() // Page
+await expect(page).toBeAccessible('#foo') // Page + selector
+await expect(page.$('#foo')).toBeAccessible() // Element handle
+await expect(page.$('iframe')).toBeAccessible() // Iframe
+```
+
+## API Documentation
+
+### `toBeAccessible`
+
+This function checks if a given page, frame, or element handle is accessible.
+
+You can test the entire page:
+
+```js
+await expect(page).toBeAccessible()
+```
+
+Or pass a selector to test part of the page:
+
+```js
+await expect(element).toBeAccessible('#my-element')
+```
+
+Or pass a Playwright [ElementHandle]:
+
+```js
+const element = await page.$('#my-element')
+await expect(element).toBeAccessible()
+```
+
+## Thanks
+
+- [expect-playwright](https://github.com/playwright-community/expect-playwright) for the rock solid foundation for writing Playwright matchers.
+- [axe-playwright](https://github.com/abhinaba-ghosh/axe-playwright) for the inspiration and groundwork laid for using Axe with Playwright.
+
+[elementhandle]: https://playwright.dev/docs/api/class-elementhandle/
