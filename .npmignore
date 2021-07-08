@@ -1,2 +1,2 @@
 lib/config/
-*.test.js
+*.spec.js
