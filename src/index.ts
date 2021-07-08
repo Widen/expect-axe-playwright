@@ -1,3 +1,1 @@
-export function run(): boolean {
-  return true
-}
+export { default as matchers } from './matchers'
