@@ -1,13 +1,13 @@
 {
-  "name": "npm-package-template",
+  "name": "expect-axe-playwright",
   "version": "0.0.0-semantically-released",
-  "description": "{{description}}",
+  "description": "Expect matchers to perform Axe accessibility tests in your Playwright tests.",
   "author": "Widen",
   "license": "ISC",
-  "repository": "github:Widen/npm-package-template",
-  "homepage": "https://github.com/Widen/npm-package-template#readme",
+  "repository": "github:Widen/expect-axe-playwright",
+  "homepage": "https://github.com/Widen/expect-axe-playwright#readme",
   "bugs": {
-    "url": "https://github.com/Widen/npm-package-template/issues"
+    "url": "https://github.com/Widen/expect-axe-playwright/issues"
   },
   "keywords": [],
   "exports": "./lib/index.js",

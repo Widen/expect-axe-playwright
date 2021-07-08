@@ -6547,9 +6547,9 @@ fsevents@^2.1.2:
   languageName: node
   linkType: hard
 
-"npm-package-template@workspace:.":
+"expect-axe-playwright@workspace:.":
   version: 0.0.0-use.local
-  resolution: "npm-package-template@workspace:."
+  resolution: "expect-axe-playwright@workspace:."
   dependencies:
     "@types/jest": ^26.0.22
     "@typescript-eslint/eslint-plugin": ^4.19.0
