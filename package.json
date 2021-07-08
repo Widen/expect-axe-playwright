@@ -9,11 +9,18 @@
   "bugs": {
     "url": "https://github.com/Widen/expect-axe-playwright/issues"
   },
-  "keywords": [],
+  "keywords": [
+    "playwright",
+    "axe",
+    "axe-core",
+    "playwright-test-runner",
+    "jest-playwright"
+  ],
   "exports": "./lib/index.js",
   "types": "index.d.ts",
   "files": [
-    "lib"
+    "lib",
+    "index.d.ts"
   ],
   "scripts": {
     "lint": "eslint .",
@@ -26,6 +33,9 @@
       "main"
     ]
   },
+  "dependencies": {
+    "axe-core": "^4.2.3"
+  },
   "devDependencies": {
     "@playwright/test": "^1.12.3",
     "@typescript-eslint/eslint-plugin": "^4.19.0",
@@ -34,8 +44,5 @@
     "prettier": "2.2.1",
     "semantic-release": "^17.4.2",
     "typescript": "^4.2.3"
-  },
-  "dependencies": {
-    "axe-core": "^4.2.3"
   }
 }
