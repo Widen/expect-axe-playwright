@@ -1,39 +1,33 @@
-import type { SyncExpectationResult, MatcherState } from 'expect/build/types'
-import fs from 'fs'
 import type { Page } from '@playwright/test'
-
-async function injectAxe(page: Page) {
-  // Don't do anything if the axe-core script has already been injected.
-  if (await page.$('script[data-axe]')) {
-    return
-  }
-
-  const filePath = require.resolve('axe-core/axe.min.js')
-  const axe = await fs.promises.readFile(filePath, 'utf-8')
-
-  // Inject the script into the page
-  await page.evaluate((axe) => window.eval(axe), axe)
-}
+import type { RunOptions } from 'axe-core'
+import type { MatcherState, SyncExpectationResult } from 'expect/build/types'
+import { injectAxe, runAxe } from '../utils/axe'
 
 export async function toBeAccessible(
   this: MatcherState,
-  page: Page
+  page: Page,
+  options: RunOptions
 ): Promise<SyncExpectationResult> {
   try {
-    await injectAxe()
-    // const [elementHandle] = await getElementHandle(args, 0)
-    // const isDisabled = await elementHandle.isDisabled()
+    await injectAxe(page)
+    const results = await runAxe(page, options)
+    const count = results.violations.length
 
     return {
-      pass: isDisabled,
-      message: () => getMessage(this, 'toBeDisabled', true, isDisabled, ''),
+      pass: count === 0,
+      message: () => {
+        return (
+          this.utils.matcherHint('', undefined, undefined, this) +
+          '\n\n' +
+          'Expected: No accessibility violations\n' +
+          `Received: ${count} violations`
+        )
+      },
     }
   } catch (err) {
     return {
       pass: false,
-      message: () => err.toString(),
+      message: () => err.message,
     }
   }
 }
-
-export default toBeDisabled
