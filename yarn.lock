@@ -3278,6 +3278,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"expect-axe-playwright@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "expect-axe-playwright@workspace:."
+  dependencies:
+    "@types/jest": ^26.0.22
+    "@typescript-eslint/eslint-plugin": ^4.19.0
+    "@typescript-eslint/parser": ^4.19.0
+    eslint: ^7.22.0
+    jest: ^26.6.3
+    prettier: ^2.2.1
+    semantic-release: ^17.4.2
+    ts-jest: ^26.5.4
+    typescript: ^4.2.3
+  languageName: unknown
+  linkType: soft
+
 "expect@npm:^26.6.2":
   version: 26.6.2
   resolution: "expect@npm:26.6.2"
@@ -6547,22 +6563,6 @@ fsevents@^2.1.2:
   languageName: node
   linkType: hard
 
-"expect-axe-playwright@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "expect-axe-playwright@workspace:."
-  dependencies:
-    "@types/jest": ^26.0.22
-    "@typescript-eslint/eslint-plugin": ^4.19.0
-    "@typescript-eslint/parser": ^4.19.0
-    eslint: ^7.22.0
-    jest: ^26.6.3
-    prettier: ^2.2.1
-    semantic-release: ^17.4.2
-    ts-jest: ^26.5.4
-    typescript: ^4.2.3
-  languageName: unknown
-  linkType: soft
-
 "npm-packlist@npm:^1.1.12, npm-packlist@npm:^1.4.8":
   version: 1.4.8
   resolution: "npm-packlist@npm:1.4.8"
@@ -9143,11 +9143,11 @@ typescript@^4.2.3:
 
 "typescript@patch:typescript@^4.2.3#builtin<compat/typescript>":
   version: 4.2.3
-  resolution: "typescript@patch:typescript@npm%3A4.2.3#builtin<compat/typescript>::version=4.2.3&hash=a45b0e"
+  resolution: "typescript@patch:typescript@npm%3A4.2.3#builtin<compat/typescript>::version=4.2.3&hash=ddfc1b"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: a8956044aabf730699bcc3c2475efdd3f35e509329325cf60b4989761d4c2188e2c474183e2cf92b8c201fcf976814a5a16f144508b2a832643c4f972d0ab803
+  checksum: 81d6d201997106efcc67238d67ed93b2e452bd368054a996abdac138e51e169d29bb91a531769ad823167e4e2acac4cd23408bb7c9432bc7b7296eba5e9a5408
   languageName: node
   linkType: hard
 
