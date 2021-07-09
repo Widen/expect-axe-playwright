@@ -17,6 +17,7 @@ jobs:
       - run: yarn lint
       - run: yarn prettier --check .
       - run: yarn ts --noEmit
+      - run: yarn playwright install chromium
       - run: yarn test
   release:
     needs: test

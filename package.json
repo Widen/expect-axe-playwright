@@ -24,8 +24,8 @@
   ],
   "scripts": {
     "lint": "eslint .",
-    "test": "playwright test",
     "release": "semantic-release",
+    "test": "playwright test",
     "ts": "tsc"
   },
   "release": {
