@@ -8,6 +8,6 @@
     "skipLibCheck": true,
     "outDir": "lib"
   },
-  "files": ["./index.d.ts"],
+  "files": ["global.d.ts"],
   "include": ["src"]
 }

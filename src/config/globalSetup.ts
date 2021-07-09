@@ -3,7 +3,6 @@ import type { AddressInfo } from 'net'
 import { readFile } from '../utils/file'
 
 function listener(req: http.IncomingMessage, res: http.ServerResponse) {
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const file = req.url!.replace('/', '')
 
   readFile(file).then((html) => {

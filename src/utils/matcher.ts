@@ -1,4 +1,5 @@
 import type { Page, Frame, ElementHandle } from '@playwright/test'
+import type { MatcherOptions } from '../../global'
 
 type Handle = Page | Frame | ElementHandle
 export type InputType = Handle | Promise<Handle>
@@ -14,11 +15,16 @@ async function getFrame(value: InputType) {
 
 export type InputArguments = [InputType, string?]
 
-const isObject = (value: unknown) =>
-  typeof value === 'object' && !(value instanceof RegExp)
+const isObject = (value: unknown) => typeof value === 'object'
 
 export async function getElementHandle(args: InputArguments) {
-  // Finally, we can find the element handle
+  // Pluck the options off the end first
+  const options =
+    args.length > 1 && isObject(args[args.length - 1])
+      ? (args.pop() as MatcherOptions)
+      : {}
+
+  // Then, we can find the element handle
   const handle = await args[0]
   let elementHandle = (await getFrame(handle)) ?? handle
 
@@ -28,11 +34,11 @@ export async function getElementHandle(args: InputArguments) {
     const selector = args[1] ?? 'html'
 
     try {
-      elementHandle = (await elementHandle.waitForSelector(selector))!
+      elementHandle = (await elementHandle.waitForSelector(selector, options))!
     } catch (err) {
       throw new Error(`Timeout exceed for element "${selector}"`)
     }
   }
 
-  return [elementHandle, {}] as const
+  return [elementHandle, options] as const
 }

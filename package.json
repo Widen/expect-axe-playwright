@@ -17,10 +17,10 @@
     "jest-playwright"
   ],
   "exports": "./lib/index.js",
-  "types": "index.d.ts",
+  "types": "global.d.ts",
   "files": [
     "lib",
-    "index.d.ts"
+    "global.d.ts"
   ],
   "scripts": {
     "lint": "eslint .",

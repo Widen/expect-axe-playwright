@@ -77,4 +77,18 @@ test.describe('toBeAccessible', () => {
       await expect(await iframe).toBeAccessible()
     })
   })
+
+  test.describe('timeout', () => {
+    test('should throw an error after the timeout exceeds', async ({
+      page,
+    }) => {
+      const start = Date.now()
+      const fn = () => expect(page).toBeAccessible('button', { timeout: 1000 })
+      await expect(fn).rejects.toThrowError()
+
+      const duration = Date.now() - start
+      expect(duration).toBeGreaterThan(1000)
+      expect(duration).toBeLessThan(1500)
+    })
+  })
 })
