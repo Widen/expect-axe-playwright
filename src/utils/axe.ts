@@ -29,7 +29,7 @@ export async function injectAxe(frame: Page | Frame) {
  * Runs axe on an element handle. The script must already be injected
  * using `injectAxe`.
  */
-export function runAxe(element: ElementHandle, options: RunOptions = {}) {
+export function runAxe(element: ElementHandle, options: RunOptions) {
   return element.evaluate<AxeResults>(
     (el, options) => window.axe.run(el, options),
     options

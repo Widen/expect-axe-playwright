@@ -13,11 +13,11 @@ export async function toBeAccessible(
   ...args: InputArguments
 ): Promise<SyncExpectationResult> {
   try {
-    const [elementHandle] = await getElementHandle(args)
+    const [elementHandle, options] = await getElementHandle(args)
     const frame = (await elementHandle.ownerFrame())!
 
     await injectAxe(frame)
-    const results = await runAxe(elementHandle, {})
+    const results = await runAxe(elementHandle, options)
     const count = results.violations.length
 
     return {

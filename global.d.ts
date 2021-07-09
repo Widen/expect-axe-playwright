@@ -1,4 +1,6 @@
-interface MatcherOptions {
+import { RunOptions } from 'axe-core'
+
+interface MatcherOptions extends RunOptions {
   /**
    * Defaults to `'visible'`. Can be either:
    * - `'attached'` - wait for element to be present in DOM.

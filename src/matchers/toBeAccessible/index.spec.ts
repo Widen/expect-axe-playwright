@@ -78,6 +78,15 @@ test.describe('toBeAccessible', () => {
     })
   })
 
+  test('should allow providing custom run options', async ({ page }) => {
+    await page.setContent('<button id="foo"></button>')
+    await expect(page).toBeAccessible('#foo', {
+      rules: {
+        'button-name': { enabled: false },
+      },
+    })
+  })
+
   test('should throw an error after the timeout exceeds', async ({ page }) => {
     const start = Date.now()
     const fn = () => expect(page).toBeAccessible('button', { timeout: 1000 })

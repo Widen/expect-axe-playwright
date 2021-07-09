@@ -19,10 +19,10 @@ const isObject = (value: unknown) => typeof value === 'object'
 
 export async function getElementHandle(args: InputArguments) {
   // Pluck the options off the end first
-  const options =
+  const { timeout, state, ...options } =
     args.length > 1 && isObject(args[args.length - 1])
       ? (args.pop() as MatcherOptions)
-      : {}
+      : ({} as MatcherOptions)
 
   // Then, we can find the element handle
   const handle = await args[0]
@@ -34,7 +34,10 @@ export async function getElementHandle(args: InputArguments) {
     const selector = args[1] ?? 'html'
 
     try {
-      elementHandle = (await elementHandle.waitForSelector(selector, options))!
+      elementHandle = (await elementHandle.waitForSelector(selector, {
+        state,
+        timeout,
+      }))!
     } catch (err) {
       throw new Error(`Timeout exceed for element "${selector}"`)
     }
