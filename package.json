@@ -16,7 +16,7 @@
     "playwright-test-runner",
     "jest-playwright"
   ],
-  "exports": "./lib/index.js",
+  "main": "./lib/index.js",
   "types": "global.d.ts",
   "files": [
     "lib",
