@@ -32,11 +32,12 @@ export async function getElementHandle(args: InputArguments) {
   let handle = await args[0]
   handle = (await getFrame(handle)) ?? handle
 
-  // If the user provided a page or iframe, we need to locate the provided
-  // selector or the `html` element if none was provided.
   if (isLocator(handle)) {
     handle = (await handle.elementHandle())!
-  } else if (!isElementHandle(handle)) {
+  }
+  // If the user provided a page or iframe, we need to locate the provided
+  // selector or the `html` element if none was provided.
+  else if (!isElementHandle(handle)) {
     const selector = args[1] ?? 'html'
 
     try {
