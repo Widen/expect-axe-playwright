@@ -78,6 +78,19 @@ test.describe('toBeAccessible', () => {
     })
   })
 
+  test.describe('locator', () => {
+    test('positive', async ({ page }) => {
+      await page.setContent('<button id="foo">Hello</button>')
+      await expect(page.locator('#foo')).toBeAccessible()
+    })
+
+    test('negative', async ({ page }) => {
+      test.fail()
+      await page.setContent('<button id="foo"></button>')
+      await expect(page.locator('#foo')).toBeAccessible()
+    })
+  })
+
   test('should allow providing custom run options', async ({ page }) => {
     await page.setContent('<button id="foo"></button>')
     await expect(page).toBeAccessible('#foo', {
