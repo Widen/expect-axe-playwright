@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test'
 import { readFile } from '../../utils/file'
 
-test.describe('toBeAccessible', () => {
+test.describe.parallel('toBeAccessible', () => {
   test.describe('page', () => {
     test('positive', async ({ page }) => {
       const content = await readFile('accessible.html')
@@ -19,7 +19,7 @@ test.describe('toBeAccessible', () => {
 
   test.describe('selector', () => {
     test('positive', async ({ page }) => {
-      await page.setContent('<button id="foo">Hello</button>')
+      await page.setContent('<button></button><button id="foo">Hello</button>')
       await expect(page).toBeAccessible('#foo')
     })
 
