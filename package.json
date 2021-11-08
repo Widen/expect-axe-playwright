@@ -1,6 +1,6 @@
 {
   "name": "expect-axe-playwright",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Expect matchers to perform Axe accessibility tests in your Playwright tests.",
   "author": "Widen",
   "license": "ISC",
