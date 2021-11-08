@@ -35,7 +35,7 @@ export async function toBeAccessible(
   } catch (err) {
     return {
       pass: false,
-      message: () => err.message,
+      message: () => (err as Error).message,
     }
   }
 }

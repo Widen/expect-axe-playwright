@@ -2,4 +2,7 @@
 .yarn/
 .yarnrc.yml
 
+# Changelogs are managed by changesets
+CHANGELOG.md
+
 lib/

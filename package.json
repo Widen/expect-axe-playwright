@@ -1,6 +1,6 @@
 {
   "name": "expect-axe-playwright",
-  "version": "0.0.0-semantically-released",
+  "version": "1.2.0",
   "description": "Expect matchers to perform Axe accessibility tests in your Playwright tests.",
   "author": "Widen",
   "license": "ISC",
@@ -25,19 +25,20 @@
   ],
   "scripts": {
     "lint": "eslint .",
-    "release": "semantic-release",
+    "release": "./scripts/release.sh",
     "test": "playwright test",
     "ts": "tsc"
   },
   "dependencies": {
-    "axe-core": "^4.2.3"
+    "axe-core": "^4.3.5"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.18.0",
     "@playwright/test": "^1.16.3",
-    "@typescript-eslint/eslint-plugin": "^4.19.0",
-    "@typescript-eslint/parser": "^4.19.0",
-    "eslint": "^7.22.0",
-    "prettier": "2.2.1",
-    "typescript": "^4.2.3"
+    "@typescript-eslint/eslint-plugin": "^5.3.1",
+    "@typescript-eslint/parser": "^5.3.1",
+    "eslint": "^8.2.0",
+    "prettier": "^2.4.1",
+    "typescript": "^4.4.4"
   }
 }
