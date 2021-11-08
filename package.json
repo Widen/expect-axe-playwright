@@ -4,6 +4,7 @@
   "description": "Expect matchers to perform Axe accessibility tests in your Playwright tests.",
   "author": "Widen",
   "license": "ISC",
+  "packageManager": "yarn@3.1.0",
   "repository": "github:Widen/expect-axe-playwright",
   "homepage": "https://github.com/Widen/expect-axe-playwright#readme",
   "bugs": {
@@ -28,11 +29,6 @@
     "test": "playwright test",
     "ts": "tsc"
   },
-  "release": {
-    "branches": [
-      "main"
-    ]
-  },
   "dependencies": {
     "axe-core": "^4.2.3"
   },
@@ -42,7 +38,6 @@
     "@typescript-eslint/parser": "^4.19.0",
     "eslint": "^7.22.0",
     "prettier": "2.2.1",
-    "semantic-release": "^17.4.2",
     "typescript": "^4.2.3"
   }
 }
