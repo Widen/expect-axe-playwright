@@ -1,3 +1,5 @@
+import test from '@playwright/test'
+import merge from 'merge-deep'
 import { createHtmlReport } from '@widen/axe-html-reporter'
 import type { Result, RunOptions } from 'axe-core'
 import type { MatcherState, SyncExpectationResult } from 'expect/build/types'
@@ -18,9 +20,13 @@ export async function toBeAccessible(
   try {
     const { frame, locator } = resolveHandle(handle)
     await injectAxe(frame)
-    const results = await runAxe(locator, options)
+
+    const opts = merge(test.info().project.use.axeOptions, options)
+    const results = await runAxe(locator, opts)
     const count = results.violations.length
 
+    // If there are violations, attach an HTML report to the test for additional
+    // visibility into the issue.
     if (count) {
       const html = createHtmlReport({
         results,

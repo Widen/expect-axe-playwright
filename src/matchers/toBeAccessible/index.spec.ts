@@ -10,7 +10,7 @@ test.describe.parallel('toBeAccessible', () => {
     })
 
     test('negative', async ({ page }) => {
-      // test.fail()
+      test.fail()
       const content = await readFile('inaccessible.html')
       await page.setContent(content)
       await expect(page).toBeAccessible()
@@ -56,6 +56,18 @@ test.describe.parallel('toBeAccessible', () => {
     await expect(page.locator('#foo')).toBeAccessible({
       rules: {
         'button-name': { enabled: false },
+      },
+    })
+  })
+
+  test.only('should respect project level options', async ({ page }) => {
+    await page.setContent('<h1></h1>')
+    await expect(page).toBeAccessible()
+
+    await page.setContent('<h1></h1>')
+    await expect(page).not.toBeAccessible({
+      rules: {
+        'empty-heading': { enabled: true },
       },
     })
   })

@@ -4,13 +4,11 @@ import test from '@playwright/test'
 
 export async function attach(name: string, data: string) {
   const info = test.info()
-  // const outDir = info.outputPath('axe-reports')
-  // const outPath = path.join(outDir, name)
   const outPath = path.join(info.outputPath(), name)
-
-  // await fs.mkdir(outDir, { recursive: true })
   await fs.writeFile(outPath, data, 'utf8')
 
+  // So..., Playwright says not to do this, but `TestInfo.attach` hashes the
+  // filename making the user experience pretty terrible.
   info.attachments.push({
     name,
     path: outPath,

@@ -1,5 +1,11 @@
 import { RunOptions } from 'axe-core'
 
+declare module '@playwright/test' {
+  export interface PlaywrightTestOptions {
+    axeOptions?: RunOptions
+  }
+}
+
 interface AxePlaywrightMatchers<R> {
   /**
    * Verifies that the page, frame, or locator is accessible.
