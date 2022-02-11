@@ -14,8 +14,7 @@
     "playwright",
     "axe",
     "axe-core",
-    "playwright-test-runner",
-    "jest-playwright"
+    "playwright-test"
   ],
   "main": "./lib/index.js",
   "types": "global.d.ts",

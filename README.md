@@ -22,20 +22,9 @@ yarn add expect-axe-playwright
 
 ## Usage
 
-### With [Playwright test runner](https://playwright.dev/docs/test-intro/)
-
 ```ts
 // playwright.config.ts
 import { expect } from '@playwright/test'
-import { matchers } from 'expect-axe-playwright'
-
-expect.extend(matchers)
-```
-
-### With Jest
-
-```js
-// setup-jest.js
 import { matchers } from 'expect-axe-playwright'
 
 expect.extend(matchers)

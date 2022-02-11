@@ -34,11 +34,6 @@ interface AxePlaywrightMatchers<R> {
 }
 
 declare global {
-  namespace jest {
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    interface Matchers<R> extends AxePlaywrightMatchers<R> {}
-  }
-
   namespace PlaywrightTest {
     // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface Matchers<R> extends AxePlaywrightMatchers<R> {}
