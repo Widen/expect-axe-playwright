@@ -1,8 +1,9 @@
 .vscode/
-node_modules/
 lib/
+test-results/
 
 # Yarn
+node_modules/
 .yarn/*
 !.yarn/releases
 !.yarn/plugins

@@ -10,7 +10,7 @@ test.describe.parallel('toBeAccessible', () => {
     })
 
     test('negative', async ({ page }) => {
-      test.fail()
+      // test.fail()
       const content = await readFile('inaccessible.html')
       await page.setContent(content)
       await expect(page).toBeAccessible()

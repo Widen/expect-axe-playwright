@@ -1,10 +1,11 @@
-import { Frame } from '@playwright/test'
+import { createHtmlReport } from '@widen/axe-html-reporter'
 import type { Result, RunOptions } from 'axe-core'
 import type { MatcherState, SyncExpectationResult } from 'expect/build/types'
+import { attach } from '../../utils/attachments'
 import { injectAxe, runAxe } from '../../utils/axe'
-import { Handle, isLocator } from '../../utils/matcher'
+import { Handle, resolveHandle } from '../../utils/matcher'
 
-const collectViolations = (violations: Result[]) =>
+const summarize = (violations: Result[]) =>
   violations
     .map((violation) => `${violation.id}(${violation.nodes.length})`)
     .join(', ')
@@ -15,12 +16,19 @@ export async function toBeAccessible(
   options?: RunOptions
 ): Promise<SyncExpectationResult> {
   try {
-    const locator = isLocator(handle) ? handle : handle.locator('body')
-    const frame = (locator as unknown as { _frame: Frame })._frame
-
+    const { frame, locator } = resolveHandle(handle)
     await injectAxe(frame)
     const results = await runAxe(locator, options)
     const count = results.violations.length
+
+    if (count) {
+      const html = createHtmlReport({
+        results,
+        options: { doNotCreateReportFile: true },
+      })
+
+      await attach('axe-report.html', html)
+    }
 
     return {
       pass: count === 0,
@@ -30,7 +38,7 @@ export async function toBeAccessible(
           '\n\n' +
           'Expected: No violations\n' +
           `Received: ${count} violations\n\n` +
-          `Violations: ${collectViolations(results.violations)}`
+          `Violations: ${summarize(results.violations)}`
         )
       },
     }
