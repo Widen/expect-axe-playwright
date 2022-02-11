@@ -35,13 +35,3 @@ yarn changeset
 After running this command, a new markdown file will be created in the
 `.changeset` folder. These files should be pushed to your branch and if you make
 a mistake, you can amend them at any time.
-
-### Snapshot releases
-
-When commits are pushed to a branch, snapshot releases will be published.
-Snapshot releases are not meant for production use, but can be installed in your
-application for testing purposes.
-
-```sh
-yarn add expect-axe-playwright@0.0.0-branch-name-2021226204115
-```
