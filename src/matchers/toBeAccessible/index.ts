@@ -1,7 +1,8 @@
-import type { Result } from 'axe-core'
+import { Frame } from '@playwright/test'
+import type { Result, RunOptions } from 'axe-core'
 import type { MatcherState, SyncExpectationResult } from 'expect/build/types'
 import { injectAxe, runAxe } from '../../utils/axe'
-import { getElementHandle, InputArguments } from '../../utils/matcher'
+import { Handle, isLocator } from '../../utils/matcher'
 
 const collectViolations = (violations: Result[]) =>
   violations
@@ -10,14 +11,15 @@ const collectViolations = (violations: Result[]) =>
 
 export async function toBeAccessible(
   this: MatcherState,
-  ...args: InputArguments
+  handle: Handle,
+  options?: RunOptions
 ): Promise<SyncExpectationResult> {
   try {
-    const [elementHandle, options] = await getElementHandle(args)
-    const frame = (await elementHandle.ownerFrame())!
+    const locator = isLocator(handle) ? handle : handle.locator('body')
+    const frame = (locator as unknown as { _frame: Frame })._frame
 
     await injectAxe(frame)
-    const results = await runAxe(elementHandle, options)
+    const results = await runAxe(locator, options)
     const count = results.violations.length
 
     return {
