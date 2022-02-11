@@ -1,4 +1,4 @@
-import type { Frame, Locator } from '@playwright/test'
+import type { Locator } from '@playwright/test'
 import type { AxePlugin, AxeResults, RunOptions } from 'axe-core'
 import fs from 'fs'
 
@@ -11,9 +11,9 @@ declare global {
 /**
  * Injects the axe-core script into the page if it hasn't already been injected.
  */
-export async function injectAxe(frame: Frame) {
+export async function injectAxe(locator: Locator) {
   // Exit early if Axe has already been injected.
-  if (await frame.evaluate(() => !!window.axe)) {
+  if (await locator.evaluate(() => !!window.axe)) {
     return
   }
 
@@ -22,7 +22,7 @@ export async function injectAxe(frame: Frame) {
   const axe = await fs.promises.readFile(filePath, 'utf-8')
 
   // Inject the script into the page
-  await frame.evaluate((axe) => window.eval(axe), axe)
+  await locator.evaluate((_, axe) => window.eval(axe), axe)
 }
 
 /**

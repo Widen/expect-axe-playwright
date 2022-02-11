@@ -1,14 +1,11 @@
-import type { Frame, Locator, Page } from '@playwright/test'
+import type { Frame, FrameLocator, Locator, Page } from 'playwright-core'
 
-export type Handle = Page | Frame | Locator
+export type Handle = Page | Frame | FrameLocator | Locator
 
 function isLocator(value: Handle): value is Locator {
   return value.constructor.name === 'Locator'
 }
 
-export function resolveHandle(handle: Handle) {
-  const locator = isLocator(handle) ? handle : handle.locator('body')
-  const frame = (locator as unknown as { _frame: Frame })._frame
-
-  return { locator, frame }
+export function resolveLocator(handle: Handle) {
+  return isLocator(handle) ? handle : handle.locator('body')
 }

@@ -1,11 +1,11 @@
 import test from '@playwright/test'
 import merge from 'merge-deep'
-import { createHtmlReport } from '@widen/axe-html-reporter'
+import { createHtmlReport } from 'axe-reporter-html'
 import type { Result, RunOptions } from 'axe-core'
 import type { MatcherState, SyncExpectationResult } from 'expect/build/types'
 import { attach } from '../../utils/attachments'
 import { injectAxe, runAxe } from '../../utils/axe'
-import { Handle, resolveHandle } from '../../utils/matcher'
+import { Handle, resolveLocator } from '../../utils/matcher'
 
 const summarize = (violations: Result[]) =>
   violations
@@ -18,8 +18,8 @@ export async function toBeAccessible(
   options?: RunOptions
 ): Promise<SyncExpectationResult> {
   try {
-    const { frame, locator } = resolveHandle(handle)
-    await injectAxe(frame)
+    const locator = resolveLocator(handle)
+    await injectAxe(locator)
 
     const opts = merge(test.info().project.use.axeOptions, options)
     const results = await runAxe(locator, opts)
