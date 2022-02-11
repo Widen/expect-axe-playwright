@@ -29,8 +29,8 @@
     "ts": "tsc"
   },
   "dependencies": {
-    "@widen/axe-html-reporter": "^0.0.2",
     "axe-core": "^4.3.5",
+    "axe-reporter-html": "^0.0.1",
     "merge-deep": "^3.0.3"
   },
   "devDependencies": {

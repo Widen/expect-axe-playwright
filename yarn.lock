@@ -1184,18 +1184,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@widen/axe-html-reporter@npm:^0.0.2":
-  version: 0.0.2
-  resolution: "@widen/axe-html-reporter@npm:0.0.2::__archiveUrl=https%3A%2F%2Fwiden.jfrog.io%2Fwiden%2Fapi%2Fnpm%2Fnpm-virtual%2F%40widen%2Faxe-html-reporter%2F-%2F%40widen%2Faxe-html-reporter-0.0.2.tgz"
-  dependencies:
-    mustache: ^4.0.1
-    rimraf: ^3.0.2
-  peerDependencies:
-    axe-core: ">=3"
-  checksum: 9c3c1d27224f150d348f71b80c44335a9bedfc8ae3bac911e2a4609340b4deb3cedf5804c8f2d72c832a931453679686e2b2bf8b62cc50a4a053767b34a0f90f
-  languageName: node
-  linkType: hard
-
 "acorn-jsx@npm:^5.3.1":
   version: 5.3.1
   resolution: "acorn-jsx@npm:5.3.1"
@@ -1331,6 +1319,18 @@ __metadata:
   version: 4.3.5
   resolution: "axe-core@npm:4.3.5"
   checksum: 973c6a80f0aaa663820b209d4202de7a0c240a2dea2f3cff168b09c0f221b27179b1f0988f00ad11ed63cbc50535920f8ca779de1c60dc82090ab2d275f71fdd
+  languageName: node
+  linkType: hard
+
+"axe-reporter-html@npm:^0.0.1":
+  version: 0.0.1
+  resolution: "axe-reporter-html@npm:0.0.1"
+  dependencies:
+    mustache: ^4.0.1
+    rimraf: ^3.0.2
+  peerDependencies:
+    axe-core: ">=3"
+  checksum: 24637d3c3fc5ddf8f0a07a71f15b76142ad6a16b06ab816872efa6cbd9cf9bd73733ef147f8f6429a04fe0cc601bccddb8116ac9c7667fd66eea6406c0650145
   languageName: node
   linkType: hard
 
@@ -2032,8 +2032,8 @@ __metadata:
     "@types/merge-deep": ^3.0.0
     "@typescript-eslint/eslint-plugin": ^5.3.1
     "@typescript-eslint/parser": ^5.3.1
-    "@widen/axe-html-reporter": ^0.0.2
     axe-core: ^4.3.5
+    axe-reporter-html: ^0.0.1
     eslint: ^8.2.0
     merge-deep: ^3.0.3
     prettier: ^2.4.1
