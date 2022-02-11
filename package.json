@@ -4,7 +4,7 @@
   "description": "Expect matchers to perform Axe accessibility tests in your Playwright tests.",
   "author": "Widen",
   "license": "ISC",
-  "packageManager": "yarn@3.1.0",
+  "packageManager": "yarn@3.1.1",
   "repository": "github:Widen/expect-axe-playwright",
   "homepage": "https://github.com/Widen/expect-axe-playwright#readme",
   "bugs": {
