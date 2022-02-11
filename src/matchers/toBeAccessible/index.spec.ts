@@ -17,6 +17,21 @@ test.describe.parallel('toBeAccessible', () => {
     })
   })
 
+  test.describe('frame locators', () => {
+    test('positive', async ({ page }) => {
+      const content = `<iframe src="http://localhost:${process.env.SERVER_PORT}/accessible.html">`
+      await page.setContent(content)
+      await expect(page.frameLocator('iframe')).toBeAccessible()
+    })
+
+    test('negative', async ({ page }) => {
+      test.fail()
+      const content = `<iframe src="http://localhost:${process.env.SERVER_PORT}/inaccessible.html">`
+      await page.setContent(content)
+      await expect(page.frameLocator('iframe')).toBeAccessible()
+    })
+  })
+
   test.describe('frame', () => {
     test('positive', async ({ page }) => {
       const content = `<iframe src="http://localhost:${process.env.SERVER_PORT}/accessible.html">`
@@ -60,7 +75,7 @@ test.describe.parallel('toBeAccessible', () => {
     })
   })
 
-  test.only('should respect project level options', async ({ page }) => {
+  test('should respect project level options', async ({ page }) => {
     await page.setContent('<h1></h1>')
     await expect(page).toBeAccessible()
 
