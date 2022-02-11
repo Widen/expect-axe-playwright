@@ -1,5 +1,5 @@
 import { expect, PlaywrightTestConfig } from '@playwright/test'
-import { matchers } from './src'
+import matchers from './src'
 
 expect.extend(matchers)
 

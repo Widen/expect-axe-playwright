@@ -1,1 +1,3 @@
-export { default as matchers } from './matchers'
+import matchers from './matchers'
+
+export default matchers

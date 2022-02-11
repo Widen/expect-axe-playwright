@@ -25,9 +25,9 @@ yarn add expect-axe-playwright
 ```ts
 // playwright.config.ts
 import { expect } from '@playwright/test'
-import { matchers } from 'expect-axe-playwright'
+import axeMatchers from 'expect-axe-playwright'
 
-expect.extend(matchers)
+expect.extend(axeMatchers)
 ```
 
 ## Why do I need it?

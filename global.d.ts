@@ -40,5 +40,5 @@ declare global {
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const matchers: any
+declare const matchers: AxePlaywrightMatchers
+export default matchers
