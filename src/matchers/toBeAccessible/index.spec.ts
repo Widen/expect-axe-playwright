@@ -13,7 +13,7 @@ test.describe.parallel('toBeAccessible', () => {
       test.fail()
       const content = await readFile('inaccessible.html')
       await page.setContent(content)
-      await expect(page).toBeAccessible()
+      await expect(page).toBeAccessible({ timeout: 1000 })
     })
   })
 
@@ -28,7 +28,9 @@ test.describe.parallel('toBeAccessible', () => {
       test.fail()
       const content = `<iframe src="http://localhost:${process.env.SERVER_PORT}/inaccessible.html">`
       await page.setContent(content)
-      await expect(page.frameLocator('iframe')).toBeAccessible()
+      await expect(page.frameLocator('iframe')).toBeAccessible({
+        timeout: 1000,
+      })
     })
   })
 
@@ -49,7 +51,7 @@ test.describe.parallel('toBeAccessible', () => {
 
       const iframe = await page.$('iframe')
       const frame = await iframe!.contentFrame()
-      await expect(frame).toBeAccessible()
+      await expect(frame).toBeAccessible({ timeout: 1000 })
     })
   })
 
@@ -62,7 +64,7 @@ test.describe.parallel('toBeAccessible', () => {
     test('negative', async ({ page }) => {
       test.fail()
       await page.setContent('<button id="foo"></button>')
-      await expect(page.locator('#foo')).toBeAccessible()
+      await expect(page.locator('#foo')).toBeAccessible({ timeout: 1000 })
     })
   })
 
@@ -87,14 +89,24 @@ test.describe.parallel('toBeAccessible', () => {
   })
 
   test('should respect project level options', async ({ page }) => {
-    await page.setContent('<h1></h1>')
+    await page.setContent('<body><h1></h1></body>')
     await expect(page).toBeAccessible()
 
-    await page.setContent('<h1></h1>')
+    await page.setContent('<body><h1></h1></body>')
     await expect(page).not.toBeAccessible({
-      rules: {
-        'empty-heading': { enabled: true },
-      },
+      rules: { 'empty-heading': { enabled: true } },
+      timeout: 1000,
     })
+  })
+
+  test('should throw an error after the timeout exceeds', async ({ page }) => {
+    await page.setContent('<body><button></button></body>')
+    const start = Date.now()
+    const fn = () => expect(page).toBeAccessible({ timeout: 1000 })
+    await expect(fn).rejects.toThrowError()
+
+    const duration = Date.now() - start
+    expect(duration).toBeGreaterThan(1000)
+    expect(duration).toBeLessThan(1500)
   })
 })

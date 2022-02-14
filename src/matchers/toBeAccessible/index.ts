@@ -13,10 +13,14 @@ const summarize = (violations: Result[]) =>
     .map((violation) => `${violation.id}(${violation.nodes.length})`)
     .join(', ')
 
+interface MatcherOptions extends RunOptions {
+  timeout?: number
+}
+
 export async function toBeAccessible(
   this: MatcherState,
   handle: Handle,
-  options?: RunOptions
+  { timeout, ...options }: MatcherOptions = {}
 ): Promise<SyncExpectationResult> {
   try {
     const locator = resolveLocator(handle)
@@ -25,7 +29,7 @@ export async function toBeAccessible(
     const info = test.info()
     const opts = merge(info.project.use.axeOptions, options)
 
-    const { ok, results } = await poll(locator, async () => {
+    const { ok, results } = await poll(locator, timeout, async () => {
       const results = await runAxe(locator, opts)
 
       return {

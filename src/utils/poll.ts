@@ -1,16 +1,20 @@
 import test, { Locator } from '@playwright/test'
 
+function getTimeout(timeout: number | undefined) {
+  return timeout ?? test.info()?.project.expect?.timeout ?? 5000
+}
+
 export async function poll<T extends { ok: boolean }>(
   locator: Locator,
+  timeout: number | undefined,
   predicate: () => Promise<T>
 ): Promise<T> {
+  let result: T = null!
   let expired = false
-  const timeout = test.info()?.project.expect?.timeout ?? 5000
+
   const timer = setTimeout(() => {
     expired = true
-  }, timeout)
-
-  let result: T = null!
+  }, getTimeout(timeout))
 
   try {
     // eslint-disable-next-line no-constant-condition
@@ -23,7 +27,7 @@ export async function poll<T extends { ok: boolean }>(
       await locator.evaluate(() => new Promise(requestAnimationFrame))
     }
   } catch (e) {
-    // ...
+    // Nothing to do here.
   } finally {
     clearTimeout(timer)
   }

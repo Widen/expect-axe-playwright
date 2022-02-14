@@ -6,12 +6,19 @@ declare module '@playwright/test' {
   }
 }
 
+interface MatcherOptions extends RunOptions {
+  /**
+   * Maximum time in milliseconds, defaults to 5 seconds.
+   */
+  timeout?: number
+}
+
 interface AxePlaywrightMatchers<R> {
   /**
    * Verifies that the page, frame, or locator is accessible.
    * @param options - Options to pass to axe-core. See the [axe-core documentation](https://www.deque.com/axe/core-documentation/api-documentation/#options-parameter) for more details.
    */
-  toBeAccessible(options?: RunOptions): Promise<R>
+  toBeAccessible(options?: MatcherOptions): Promise<R>
 }
 
 declare global {
