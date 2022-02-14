@@ -102,7 +102,7 @@ test.describe.parallel('toBeAccessible', () => {
   test('should throw an error after the timeout exceeds', async ({ page }) => {
     await page.setContent('<body><button></button></body>')
     const start = Date.now()
-    const fn = () => expect(page).toBeAccessible({ timeout: 2000 })
+    const fn = () => expect(page).toBeAccessible({ timeout: 1000 })
     await expect(fn).rejects.toThrowError()
 
     const duration = Date.now() - start
