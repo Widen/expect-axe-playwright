@@ -1,9 +1,8 @@
 import path from 'path'
 import fs from 'fs/promises'
-import test from '@playwright/test'
+import { TestInfo } from '@playwright/test'
 
-export async function attach(name: string, data: string) {
-  const info = test.info()
+export async function attach(info: TestInfo, name: string, data: string) {
   const outPath = path.join(info.outputPath(), name)
   await fs.writeFile(outPath, data, 'utf8')
 

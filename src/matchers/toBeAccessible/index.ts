@@ -22,7 +22,9 @@ export async function toBeAccessible(
     const locator = resolveLocator(handle)
     await injectAxe(locator)
 
-    const opts = merge(test.info().project.use.axeOptions, options)
+    const info = test.info()
+    const opts = merge(info.project.use.axeOptions, options)
+
     const { ok, results } = await poll(locator, async () => {
       const results = await runAxe(locator, opts)
 
@@ -34,13 +36,13 @@ export async function toBeAccessible(
 
     // If there are violations, attach an HTML report to the test for additional
     // visibility into the issue.
-    if (ok) {
+    if (!ok) {
       const html = createHtmlReport({
         results,
         options: { doNotCreateReportFile: true },
       })
 
-      await attach('axe-report.html', html)
+      await attach(info, 'axe-report.html', html)
     }
 
     return {
