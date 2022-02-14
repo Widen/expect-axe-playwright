@@ -6,6 +6,7 @@ import type { MatcherState, SyncExpectationResult } from 'expect/build/types'
 import { attach } from '../../utils/attachments'
 import { injectAxe, runAxe } from '../../utils/axe'
 import { Handle, resolveLocator } from '../../utils/matcher'
+import { poll } from '../../utils/poll'
 
 const summarize = (violations: Result[]) =>
   violations
@@ -22,12 +23,18 @@ export async function toBeAccessible(
     await injectAxe(locator)
 
     const opts = merge(test.info().project.use.axeOptions, options)
-    const results = await runAxe(locator, opts)
-    const count = results.violations.length
+    const { ok, results } = await poll(locator, async () => {
+      const results = await runAxe(locator, opts)
+
+      return {
+        ok: !results.violations.length,
+        results,
+      }
+    })
 
     // If there are violations, attach an HTML report to the test for additional
     // visibility into the issue.
-    if (count) {
+    if (ok) {
       const html = createHtmlReport({
         results,
         options: { doNotCreateReportFile: true },
@@ -37,13 +44,13 @@ export async function toBeAccessible(
     }
 
     return {
-      pass: count === 0,
+      pass: ok,
       message: () => {
         return (
           this.utils.matcherHint('toBeAccessible', undefined, undefined, this) +
           '\n\n' +
           'Expected: No violations\n' +
-          `Received: ${count} violations\n\n` +
+          `Received: ${results.violations.length} violations\n\n` +
           `Violations: ${summarize(results.violations)}`
         )
       },
