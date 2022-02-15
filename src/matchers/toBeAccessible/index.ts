@@ -1,34 +1,63 @@
-import type { Result } from 'axe-core'
+import test from '@playwright/test'
+import merge from 'merge-deep'
+import { createHtmlReport } from 'axe-reporter-html'
+import type { Result, RunOptions } from 'axe-core'
 import type { MatcherState, SyncExpectationResult } from 'expect/build/types'
+import { attach } from '../../utils/attachments'
 import { injectAxe, runAxe } from '../../utils/axe'
-import { getElementHandle, InputArguments } from '../../utils/matcher'
+import { Handle, resolveLocator } from '../../utils/matcher'
+import { poll } from '../../utils/poll'
 
-const collectViolations = (violations: Result[]) =>
+const summarize = (violations: Result[]) =>
   violations
     .map((violation) => `${violation.id}(${violation.nodes.length})`)
     .join(', ')
 
+interface MatcherOptions extends RunOptions {
+  timeout?: number
+}
+
 export async function toBeAccessible(
   this: MatcherState,
-  ...args: InputArguments
+  handle: Handle,
+  { timeout, ...options }: MatcherOptions = {}
 ): Promise<SyncExpectationResult> {
   try {
-    const [elementHandle, options] = await getElementHandle(args)
-    const frame = (await elementHandle.ownerFrame())!
+    const locator = resolveLocator(handle)
+    await injectAxe(locator)
 
-    await injectAxe(frame)
-    const results = await runAxe(elementHandle, options)
-    const count = results.violations.length
+    const info = test.info()
+    const opts = merge(info.project.use.axeOptions, options)
+
+    const { ok, results } = await poll(locator, timeout, async () => {
+      const results = await runAxe(locator, opts)
+
+      return {
+        ok: !results.violations.length,
+        results,
+      }
+    })
+
+    // If there are violations, attach an HTML report to the test for additional
+    // visibility into the issue.
+    if (!ok) {
+      const html = createHtmlReport({
+        results,
+        options: { doNotCreateReportFile: true },
+      })
+
+      await attach(info, 'axe-report.html', html)
+    }
 
     return {
-      pass: count === 0,
+      pass: ok,
       message: () => {
         return (
           this.utils.matcherHint('toBeAccessible', undefined, undefined, this) +
           '\n\n' +
           'Expected: No violations\n' +
-          `Received: ${count} violations\n\n` +
-          `Violations: ${collectViolations(results.violations)}`
+          `Received: ${results.violations.length} violations\n\n` +
+          `Violations: ${summarize(results.violations)}`
         )
       },
     }

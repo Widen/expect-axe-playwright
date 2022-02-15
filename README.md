@@ -22,21 +22,10 @@ yarn add expect-axe-playwright
 
 ## Usage
 
-### With [Playwright test runner](https://playwright.dev/docs/test-intro/)
-
 ```ts
 // playwright.config.ts
 import { expect } from '@playwright/test'
-import { matchers } from 'expect-axe-playwright'
-
-expect.extend(matchers)
-```
-
-### With Jest
-
-```js
-// setup-jest.js
-import { matchers } from 'expect-axe-playwright'
+import matchers from 'expect-axe-playwright'
 
 expect.extend(matchers)
 ```
@@ -53,16 +42,17 @@ the rescue with the following features.
 - Direct integration with the `expect` API for simplicity and better error
   messaging.
 - Automatic Axe script injection.
-- Works with pages, frames, and element handles.
-- Automatic promise and frame resolution.
+- Auto-retry until timeout.
+- Works with [pages], [frames], and [locators].
+- HTML report with full violation details.
+- Project-level option configuration.
 
 Here are a few examples:
 
 ```js
 await expect(page).toBeAccessible() // Page
-await expect(page).toBeAccessible('#foo') // Page + selector
-await expect(page.$('#foo')).toBeAccessible() // Element handle
-await expect(page.$('iframe')).toBeAccessible() // Iframe
+await expect(page.locator('#foo')).toBeAccessible() // Locator
+await expect(page.frameLocator('iframe')).toBeAccessible() // Frame locator
 ```
 
 ## API Documentation
@@ -77,24 +67,53 @@ You can test the entire page:
 await expect(page).toBeAccessible()
 ```
 
-Or pass a selector to test part of the page:
+Or pass a locator to test part of the page:
 
 ```js
-await expect(element).toBeAccessible('#my-element')
+await expect(page.locator('#my-element')).toBeAccessible()
 ```
 
-Or pass a Playwright [ElementHandle]:
+#### Axe run options
+
+You can configure options that should be passed to aXe at the project or
+assertion level.
+
+To configure a single assertion to use a different set of options, pass an
+object with the desired arguments to the matcher.
 
 ```js
-const element = await page.$('#my-element')
-await expect(element).toBeAccessible()
+await expect(page).toBeAccessible({
+  rules: {
+    'color-contrast': { enabled: false },
+  },
+})
+```
+
+To configure the entire project to use a different set of options, specify
+options in `use.axeOptions` in your Playwright config file.
+
+```ts
+// playwright.config.ts
+import { PlaywrightTestConfig } from '@playwright/test'
+
+const config: PlaywrightTestConfig = {
+  use: {
+    axeOptions: {
+      rules: {
+        'color-contrast': { enabled: false },
+      },
+    },
+  },
+}
+
+export default config
 ```
 
 ## Thanks
 
-- [expect-playwright](https://github.com/playwright-community/expect-playwright)
-  for the rock solid foundation for writing Playwright matchers.
 - [axe-playwright](https://github.com/abhinaba-ghosh/axe-playwright) for the
   inspiration and groundwork laid for using Axe with Playwright.
 
-[elementhandle]: https://playwright.dev/docs/api/class-elementhandle/
+[pages]: https://playwright.dev/docs/api/class-page
+[frames]: https://playwright.dev/docs/api/class-frame
+[locators]: https://playwright.dev/docs/api/class-locator

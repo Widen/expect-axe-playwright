@@ -13,54 +13,35 @@ test.describe.parallel('toBeAccessible', () => {
       test.fail()
       const content = await readFile('inaccessible.html')
       await page.setContent(content)
-      await expect(page).toBeAccessible()
+      await expect(page).toBeAccessible({ timeout: 2000 })
     })
   })
 
-  test.describe('selector', () => {
+  test.describe('frame locators', () => {
     test('positive', async ({ page }) => {
-      await page.setContent('<button></button><button id="foo">Hello</button>')
-      await expect(page).toBeAccessible('#foo')
+      const content = `<iframe src="http://localhost:${process.env.SERVER_PORT}/accessible.html">`
+      await page.setContent(content)
+      await expect(page.frameLocator('iframe')).toBeAccessible()
     })
 
     test('negative', async ({ page }) => {
       test.fail()
-      await page.setContent('<button id="foo"></button>')
-      await expect(page).toBeAccessible('#foo')
+      const content = `<iframe src="http://localhost:${process.env.SERVER_PORT}/inaccessible.html">`
+      await page.setContent(content)
+      await expect(page.frameLocator('iframe')).toBeAccessible({
+        timeout: 2000,
+      })
     })
   })
 
-  test.describe('element', () => {
-    test('positive', async ({ page }) => {
-      await page.setContent('<button id="foo">Hello</button>')
-      const button = page.$('#foo')
-
-      await expect(button).toBeAccessible()
-      await expect(await button).toBeAccessible()
-    })
-
-    test('negative', async ({ page }) => {
-      test.fail()
-      await page.setContent('<button id="foo"></button>')
-      const button = page.$('#foo')
-
-      await expect(button).toBeAccessible()
-      await expect(await button).toBeAccessible()
-    })
-  })
-
-  test.describe('iframe', () => {
+  test.describe('frame', () => {
     test('positive', async ({ page }) => {
       const content = `<iframe src="http://localhost:${process.env.SERVER_PORT}/accessible.html">`
       await page.setContent(content)
 
-      const handle = page.$('iframe')
-      await expect(handle).toBeAccessible()
-      await expect(await handle).toBeAccessible()
-
-      const iframe = (await handle)?.contentFrame()
-      await expect(iframe).toBeAccessible()
-      await expect(await iframe).toBeAccessible()
+      const iframe = await page.$('iframe')
+      const frame = await iframe!.contentFrame()
+      await expect(frame).toBeAccessible()
     })
 
     test('negative', async ({ page }) => {
@@ -68,13 +49,9 @@ test.describe.parallel('toBeAccessible', () => {
       const content = `<iframe src="http://localhost:${process.env.SERVER_PORT}/inaccessible.html">`
       await page.setContent(content)
 
-      const handle = page.$('iframe')
-      await expect(handle).toBeAccessible()
-      await expect(await handle).toBeAccessible()
-
-      const iframe = (await handle)?.contentFrame()
-      await expect(iframe).toBeAccessible()
-      await expect(await iframe).toBeAccessible()
+      const iframe = await page.$('iframe')
+      const frame = await iframe!.contentFrame()
+      await expect(frame).toBeAccessible({ timeout: 2000 })
     })
   })
 
@@ -87,22 +64,45 @@ test.describe.parallel('toBeAccessible', () => {
     test('negative', async ({ page }) => {
       test.fail()
       await page.setContent('<button id="foo"></button>')
-      await expect(page.locator('#foo')).toBeAccessible()
+      await expect(page.locator('#foo')).toBeAccessible({ timeout: 2000 })
     })
+  })
+
+  test('should auto-retry assertions', async ({ page }) => {
+    await page.setContent('<button id="foo"></button>')
+
+    await Promise.all([
+      expect(page.locator('#foo')).toBeAccessible(),
+      page
+        .waitForTimeout(1000)
+        .then(() => page.setContent('<button id="foo">Hello</button>')),
+    ])
   })
 
   test('should allow providing custom run options', async ({ page }) => {
     await page.setContent('<button id="foo"></button>')
-    await expect(page).toBeAccessible('#foo', {
+    await expect(page.locator('#foo')).toBeAccessible({
       rules: {
         'button-name': { enabled: false },
       },
     })
   })
 
+  test('should respect project level options', async ({ page }) => {
+    await page.setContent('<body><h1></h1></body>')
+    await expect(page).toBeAccessible()
+
+    await page.setContent('<body><h1></h1></body>')
+    await expect(page).not.toBeAccessible({
+      rules: { 'empty-heading': { enabled: true } },
+      timeout: 2000,
+    })
+  })
+
   test('should throw an error after the timeout exceeds', async ({ page }) => {
+    await page.setContent('<body><button></button></body>')
     const start = Date.now()
-    const fn = () => expect(page).toBeAccessible('button', { timeout: 1000 })
+    const fn = () => expect(page).toBeAccessible({ timeout: 1000 })
     await expect(fn).rejects.toThrowError()
 
     const duration = Date.now() - start
