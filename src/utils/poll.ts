@@ -24,7 +24,11 @@ export async function poll<T extends { ok: boolean }>(
       result = await predicate()
       if (expired || result.ok) return result
 
-      await locator.evaluate(() => new Promise(requestAnimationFrame))
+      // TODO: Figure out a non-flaky way to use RAF.
+      // await locator.evaluate(() => new Promise(requestAnimationFrame))
+      await locator.evaluate(
+        () => new Promise((resolve) => setTimeout(resolve, 250))
+      )
     }
   } catch (e) {
     // Nothing to do here.
