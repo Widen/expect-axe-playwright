@@ -5,6 +5,9 @@
   "author": "Widen",
   "license": "ISC",
   "packageManager": "yarn@3.1.1",
+  "engines": {
+    "node": ">=14.0.0"
+  },
   "repository": "github:Widen/expect-axe-playwright",
   "homepage": "https://github.com/Widen/expect-axe-playwright#readme",
   "bugs": {
