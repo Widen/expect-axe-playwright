@@ -1,5 +1,11 @@
 # expect-axe-playwright
 
+## 2.0.1
+
+### Patch Changes
+
+- 0e06ed1: Add `engines` to package.json to enforce Node version 14 or greater.
+
 ## 2.0.0
 
 ### Major Changes
