@@ -1,6 +1,6 @@
 import test from '@playwright/test'
 import merge from 'merge-deep'
-import { createHtmlReport } from 'axe-reporter-html'
+import createHTMLReport from 'axe-reporter-html'
 import type { Result, RunOptions } from 'axe-core'
 import type { MatcherState, SyncExpectationResult } from 'expect/build/types'
 import { attach } from '../../utils/attachments'
@@ -41,11 +41,7 @@ export async function toBeAccessible(
     // If there are violations, attach an HTML report to the test for additional
     // visibility into the issue.
     if (!ok) {
-      const html = createHtmlReport({
-        results,
-        options: { doNotCreateReportFile: true },
-      })
-
+      const html = await createHTMLReport(results)
       await attach(info, 'axe-report.html', html)
     }
 
