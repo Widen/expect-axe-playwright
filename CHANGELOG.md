@@ -1,5 +1,11 @@
 # expect-axe-playwright
 
+## 2.1.0
+
+### Minor Changes
+
+- aaedb48: Update HTML report output.
+
 ## 2.0.1
 
 ### Patch Changes
