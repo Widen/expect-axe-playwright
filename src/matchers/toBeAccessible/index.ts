@@ -15,6 +15,7 @@ const summarize = (violations: Result[]) =>
 
 interface MatcherOptions extends RunOptions {
   timeout?: number
+  filename?: string
 }
 
 export async function toBeAccessible(
@@ -42,7 +43,8 @@ export async function toBeAccessible(
     // visibility into the issue.
     if (!ok) {
       const html = await createHTMLReport(results)
-      await attach(info, 'axe-report.html', html)
+      const filename = opts.filename || 'axe-report.html'
+      await attach(info, filename, html)
     }
 
     return {

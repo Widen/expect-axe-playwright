@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test'
+import { attachmentExists } from '../../utils/attachments'
 import { readFile } from '../../utils/file'
 
 test.describe.parallel('toBeAccessible', () => {
@@ -108,5 +109,24 @@ test.describe.parallel('toBeAccessible', () => {
     const duration = Date.now() - start
     expect(duration).toBeGreaterThan(1000)
     expect(duration).toBeLessThan(1500)
+  })
+
+  test('default report filename', async ({ page }) => {
+    const content = await readFile('inaccessible.html')
+    await page.setContent(content)
+    await expect(page)
+      .toBeAccessible({ timeout: 2000 })
+      .catch(() => Promise.resolve())
+    expect(attachmentExists('axe-report.html')).toBe(true)
+  })
+
+  test('should allow providing custom report filename', async ({ page }) => {
+    const filename = 'custom-report.html'
+    const content = await readFile('inaccessible.html')
+    await page.setContent(content)
+    await expect(page)
+      .toBeAccessible({ timeout: 2000, filename })
+      .catch(() => Promise.resolve())
+    expect(attachmentExists(filename)).toBe(true)
   })
 })
