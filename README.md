@@ -109,6 +109,21 @@ const config: PlaywrightTestConfig = {
 export default config
 ```
 
+#### Report options
+
+You can configure options that should be passed to the aXe HTML reporter at
+the assertion level.
+
+```js
+await expect(page.locator('#my-element')).toBeAccessible({
+  filename: 'my-report.html',
+})
+```
+
+This is particularly useful if you need to produce multiple aXe reports within
+the same test as it would otherwise keep replacing the same report every time
+you run the assertion.
+
 ## Thanks
 
 - [axe-playwright](https://github.com/abhinaba-ghosh/axe-playwright) for the

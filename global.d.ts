@@ -11,6 +11,12 @@ interface MatcherOptions extends RunOptions {
    * Maximum time in milliseconds, defaults to 5 seconds.
    */
   timeout?: number
+
+  /**
+   * Custom report filename
+   * @default 'axe-report.html'
+   */
+  filename?: string
 }
 
 interface AxePlaywrightMatchers<R> {
