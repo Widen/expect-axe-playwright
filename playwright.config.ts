@@ -11,6 +11,7 @@ declare module '@playwright/test' {
 }
 
 const config: PlaywrightTestConfig = {
+  retries: process.env.CI ? 2 : 0,
   globalSetup: require.resolve('./src/config/globalSetup'),
   testDir: 'src',
   use: {
