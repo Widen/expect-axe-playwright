@@ -1,5 +1,11 @@
 # expect-axe-playwright
 
+## 2.2.0
+
+### Minor Changes
+
+- b1b5d23: Support custom report filenames via toBeAccessible
+
 ## 2.1.0
 
 ### Minor Changes
