@@ -1,5 +1,11 @@
 # expect-axe-playwright
 
+## 2.2.1
+
+### Patch Changes
+
+- 7ad6287: Inject axe even if there is an element with an id of `axe`.
+
 ## 2.2.0
 
 ### Minor Changes
