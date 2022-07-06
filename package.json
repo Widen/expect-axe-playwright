@@ -40,6 +40,7 @@
     "@changesets/cli": "^2.23.0",
     "@playwright/test": "^1.23.1",
     "@types/merge-deep": "^3.0.0",
+    "@types/node": "^18.0.3",
     "@typescript-eslint/eslint-plugin": "^5.30.5",
     "@typescript-eslint/parser": "^5.30.5",
     "eslint": "^8.19.0",

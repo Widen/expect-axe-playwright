@@ -427,6 +427,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/node@npm:^18.0.3":
+  version: 18.0.3
+  resolution: "@types/node@npm:18.0.3"
+  checksum: 5dec59fbbc1186c808b53df1ca717dad034dbd6a901c75f5b052c845618b531b05f27217122c6254db99529a68618e4cfc534ae3dbf4e88754e9e572df80defa
+  languageName: node
+  linkType: hard
+
 "@types/normalize-package-data@npm:^2.4.0":
   version: 2.4.1
   resolution: "@types/normalize-package-data@npm:2.4.1"
@@ -1289,6 +1296,7 @@ __metadata:
     "@changesets/cli": ^2.23.0
     "@playwright/test": ^1.23.1
     "@types/merge-deep": ^3.0.0
+    "@types/node": ^18.0.3
     "@typescript-eslint/eslint-plugin": ^5.30.5
     "@typescript-eslint/parser": ^5.30.5
     axe-core: ^4.4.2
