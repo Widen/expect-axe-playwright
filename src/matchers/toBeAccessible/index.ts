@@ -1,8 +1,8 @@
 import test from '@playwright/test'
-import merge from 'merge-deep'
-import createHTMLReport from 'axe-reporter-html'
+import type { MatcherState } from '@playwright/test/types/expect-types'
 import type { Result, RunOptions } from 'axe-core'
-import type { MatcherState, SyncExpectationResult } from 'expect/build/types'
+import createHTMLReport from 'axe-reporter-html'
+import merge from 'merge-deep'
 import { attach } from '../../utils/attachments'
 import { injectAxe, runAxe } from '../../utils/axe'
 import { Handle, resolveLocator } from '../../utils/matcher'
@@ -22,7 +22,7 @@ export async function toBeAccessible(
   this: MatcherState,
   handle: Handle,
   { timeout, ...options }: MatcherOptions = {}
-): Promise<SyncExpectationResult> {
+) {
   try {
     const locator = resolveLocator(handle)
     await injectAxe(locator)

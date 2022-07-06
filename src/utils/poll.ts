@@ -1,7 +1,11 @@
 import test, { Locator } from '@playwright/test'
 
+interface TestInfo {
+  _expect?: { timeout?: number }
+}
+
 function getTimeout(timeout: number | undefined) {
-  return timeout ?? test.info()?.project.expect?.timeout ?? 5000
+  return timeout ?? (test.info() as TestInfo)?._expect?.timeout ?? 5000
 }
 
 export async function poll<T extends { ok: boolean }>(

@@ -12,8 +12,9 @@ declare global {
  * Injects the axe-core script into the page if it hasn't already been injected.
  */
 export async function injectAxe(locator: Locator) {
-  // Exit early if Axe has already been injected.
-  if (await locator.evaluate(() => !!window.axe)) {
+  // Exit early if Axe has already been injected. Test for `window.axe.run` to
+  // prevent a false positive if there is an element with `id="axe"`.
+  if (await locator.evaluate(() => !!window.axe?.run)) {
     return
   }
 
