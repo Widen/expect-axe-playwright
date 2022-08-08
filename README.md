@@ -124,6 +124,30 @@ This is particularly useful if you need to produce multiple aXe reports within
 the same test as it would otherwise keep replacing the same report every time
 you run the assertion.
 
+Two report types are supported: HTML and JSON. You can pass options for each
+separately:
+
+```js
+await expect(page.locator('#my-element')).toBeAccessible({
+  reports: {
+    html: {
+      // By default, this library attaches the HTML report on failure,
+      // but you can override this behaviour with attach='on' or 'off'
+      attach: 'retain-on-failure', // 'on' | 'off' | 'retain-on-failure'
+      filename: 'axe-report-on-my-element.html',
+    },
+    json: {
+      attach: 'on', // 'on' | 'off' | 'retain-on-failure'
+      filename: 'axe-report-on-my-element.json',
+      space: 0, // third argument to JSON.stringify
+    },
+  }
+})
+```
+
+These same options can also be defined at the project level inside the
+`axeOptions` object descibed above.
+
 ## Thanks
 
 - [axe-playwright](https://github.com/abhinaba-ghosh/axe-playwright) for the

@@ -13,10 +13,35 @@ const summarize = (violations: Result[]) =>
     .map((violation) => `${violation.id}(${violation.nodes.length})`)
     .join(', ')
 
+interface ReportOptions {
+  attach: 'on' | 'off' | 'retain-on-failure'
+  filename?: string
+}
+type HtmlReportOptions = ReportOptions
+
+interface JsonReportOptions extends ReportOptions {
+  space?: number | string
+}
 interface MatcherOptions extends RunOptions {
   timeout?: number
   filename?: string
+  reports?: {
+    html?: HtmlReportOptions
+    json?: JsonReportOptions
+  }
 }
+
+const backwardsCompatShouldAttach = (
+  ok: boolean,
+  opts: MatcherOptions
+): boolean => !ok && !opts.reports
+const shouldAttach = (ok: boolean, reportOptions?: ReportOptions): boolean =>
+  Boolean(
+    reportOptions &&
+      reportOptions.attach !== 'off' &&
+      (reportOptions.attach === 'on' ||
+        (!ok && reportOptions.attach === 'retain-on-failure'))
+  )
 
 export async function toBeAccessible(
   this: MatcherState,
@@ -40,11 +65,23 @@ export async function toBeAccessible(
     })
 
     // If there are violations, attach an HTML report to the test for additional
-    // visibility into the issue.
-    if (!ok) {
+    // visibility into the issue. (Unless client has asked for no attachment.)
+    if (
+      backwardsCompatShouldAttach(ok, opts) ||
+      shouldAttach(ok, opts.reports?.html)
+    ) {
       const html = await createHTMLReport(results)
-      const filename = opts.filename || 'axe-report.html'
+      const filename =
+        opts.reports?.html?.filename || opts.filename || 'axe-report.html'
       await attach(info, filename, html)
+    }
+
+    // Optionally, attach the JSON (used to generate the HTML report)
+    if (shouldAttach(ok, opts.reports?.json)) {
+      const space = opts.reports?.json?.space ?? 2
+      const json = JSON.stringify(results, null, space)
+      const jsonFilename = opts.reports?.json?.filename || 'axe-report.json'
+      await attach(info, jsonFilename, json)
     }
 
     return {
