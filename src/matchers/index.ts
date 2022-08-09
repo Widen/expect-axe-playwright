@@ -1,5 +1,5 @@
-import { toBeAccessible } from './toBeAccessible'
+import { toHaveNoAxeViolations } from './toHaveNoAxeViolations'
 
 export default {
-  toBeAccessible,
+  toHaveNoAxeViolations,
 }

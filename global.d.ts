@@ -24,7 +24,7 @@ interface AxePlaywrightMatchers<R> {
    * Verifies that the page, frame, or locator is accessible.
    * @param options - Options to pass to axe-core. See the [axe-core documentation](https://www.deque.com/axe/core-documentation/api-documentation/#options-parameter) for more details.
    */
-  toBeAccessible(options?: MatcherOptions): Promise<R>
+  toHaveNoAxeViolations(options?: MatcherOptions): Promise<R>
 }
 
 declare global {

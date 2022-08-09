@@ -50,27 +50,27 @@ the rescue with the following features.
 Here are a few examples:
 
 ```js
-await expect(page).toBeAccessible() // Page
-await expect(page.locator('#foo')).toBeAccessible() // Locator
-await expect(page.frameLocator('iframe')).toBeAccessible() // Frame locator
+await expect(page).toHaveNoAxeViolations() // Page
+await expect(page.locator('#foo')).toHaveNoAxeViolations() // Locator
+await expect(page.frameLocator('iframe')).toHaveNoAxeViolations() // Frame locator
 ```
 
 ## API Documentation
 
-### `toBeAccessible`
+### `toHaveNoAxeViolations`
 
 This function checks if a given page, frame, or element handle is accessible.
 
 You can test the entire page:
 
 ```js
-await expect(page).toBeAccessible()
+await expect(page).toHaveNoAxeViolations()
 ```
 
 Or pass a locator to test part of the page:
 
 ```js
-await expect(page.locator('#my-element')).toBeAccessible()
+await expect(page.locator('#my-element')).toHaveNoAxeViolations()
 ```
 
 #### Axe run options
@@ -82,7 +82,7 @@ To configure a single assertion to use a different set of options, pass an
 object with the desired arguments to the matcher.
 
 ```js
-await expect(page).toBeAccessible({
+await expect(page).toHaveNoAxeViolations({
   rules: {
     'color-contrast': { enabled: false },
   },
@@ -115,7 +115,7 @@ You can configure options that should be passed to the aXe HTML reporter at
 the assertion level.
 
 ```js
-await expect(page.locator('#my-element')).toBeAccessible({
+await expect(page.locator('#my-element')).toHaveNoAxeViolations({
   filename: 'my-report.html',
 })
 ```
