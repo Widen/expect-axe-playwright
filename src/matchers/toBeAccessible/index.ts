@@ -1,49 +1,37 @@
 import test from '@playwright/test'
 import type { MatcherState } from '@playwright/test/types/expect-types'
-import type { Result, RunOptions } from 'axe-core'
+import type { AxeResults, Result } from 'axe-core'
+import type { MatcherOptions } from '../../types'
+import type { Handle } from '../../utils/matcher'
 import createHTMLReport from 'axe-reporter-html'
-import merge from 'merge-deep'
 import { attach } from '../../utils/attachments'
-import { injectAxe, runAxe } from '../../utils/axe'
-import { Handle, resolveLocator } from '../../utils/matcher'
-import { poll } from '../../utils/poll'
+import { runAxe } from '../../axe'
 
 const summarize = (violations: Result[]) =>
   violations
     .map((violation) => `${violation.id}(${violation.nodes.length})`)
     .join(', ')
 
-interface MatcherOptions extends RunOptions {
-  timeout?: number
-  filename?: string
-}
-
 export async function toBeAccessible(
   this: MatcherState,
-  handle: Handle,
-  { timeout, ...options }: MatcherOptions = {}
+  handleOrResults: Handle | AxeResults,
+  { timeout, filename = 'axe-report.html', ...options }: MatcherOptions = {}
 ) {
   try {
-    const locator = resolveLocator(handle)
-    await injectAxe(locator)
-
-    const info = test.info()
-    const opts = merge(info.project.use.axeOptions, options)
-
-    const { ok, results } = await poll(locator, timeout, async () => {
-      const results = await runAxe(locator, opts)
-
-      return {
-        ok: !results.violations.length,
-        results,
-      }
-    })
+    let ok: boolean
+    let results: AxeResults
+    if ((handleOrResults as AxeResults).violations) {
+      results = handleOrResults as AxeResults
+      ok = !!results.violations.length
+    } else {
+      ({ ok, results } = await runAxe(handleOrResults as Handle, { timeout, ...options }))
+    }
 
     // If there are violations, attach an HTML report to the test for additional
     // visibility into the issue.
     if (!ok) {
       const html = await createHTMLReport(results)
-      const filename = opts.filename || 'axe-report.html'
+      const info = test.info()
       await attach(info, filename, html)
     }
 

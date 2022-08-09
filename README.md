@@ -73,6 +73,19 @@ Or pass a locator to test part of the page:
 await expect(page.locator('#my-element')).toBeAccessible()
 ```
 
+You can also pass an [Axe results
+object](https://www.deque.com/axe/core-documentation/api-documentation/#results-object)
+to the matcher:
+
+```js
+import { runAxe } from 'expect-axe-playwright'
+
+test('should be accessible', async ({ page }) => {
+  const { results } = runAxe(page)
+  await expect(results).toBeAccessible()
+});
+```
+
 #### Axe run options
 
 You can configure options that should be passed to aXe at the project or
