@@ -66,3 +66,15 @@ export async function toHaveNoAxeViolations(
     }
   }
 }
+
+// DEPRECATED
+export function toBeAccessible(
+  this: MatcherState,
+  handle: Handle,
+  options: MatcherOptions = {}
+) {
+  console.error(
+    'DEPRECATED: `toBeAccessible` is no longer supported. Please replace with `toHaveNoAxeViolations`. For more info: https://github.com/Widen/expect-axe-playwright/#deprecated-tobeaccessible'
+  )
+  return toHaveNoAxeViolations.call(this, handle, options)
+}

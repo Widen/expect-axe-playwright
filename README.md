@@ -73,6 +73,41 @@ Or pass a locator to test part of the page:
 await expect(page.locator('#my-element')).toHaveNoAxeViolations()
 ```
 
+#### Deprecated: `toBeAccessible`
+
+Why was `toBeAccessible` deprecated?
+
+Imagine the following line of test code:
+
+```js
+expect(myApp).toBeSecure();
+```
+
+Accessibility is analogous in ways to security. It's very hard to say that
+anything is secure because you never know when someone is going to find some new
+security vulnerability in your code. Similarly, it's very hard to say that
+anything you've built is totally accessibile because you never know when
+somebody will uncover a barrier you didn't know was there.
+
+Furthermore, of the commonly known accessibility barriers, only some can be
+found through automated testing, which is then further subject to the
+effectiveness of the checker being used. A 2017 study on the [effectiveness of
+automated accessibility testing
+tools](https://accessibility.blog.gov.uk/2017/02/24/what-we-found-when-we-tested-tools-on-the-worlds-least-accessible-webpage/)
+by the UK's Government Digital Service confirms this.
+
+To copy from the [jest-axe](https://github.com/NickColley/jest-axe) repo's README,
+tools like Axe are similar to code linters and spell checkers: they can find
+common issues but cannot guarantee that what you build works for users.
+
+You'll also need to:
+
+- test your interface with the [assistive technologies that real users
+  use](https://www.gov.uk/service-manual/technology/testing-with-assistive-technologies#when-to-test)
+  (see also [WebAIM's survey
+  results](https://webaim.org/projects/screenreadersurvey8/#primary)).
+- include disabled people in user research.
+
 #### Axe run options
 
 You can configure options that should be passed to aXe at the project or
