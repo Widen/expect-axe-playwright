@@ -21,8 +21,7 @@ async function getResults(obj: Handle | AxeResults, options: MatcherOptions) {
         ok: !results.violations.length
       }
     } else {
-      const handle = obj as Handle
-      return waitForAxeResults(handle, options)
+      return waitForAxeResults(obj as Handle, options)
     }
 }
 
