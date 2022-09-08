@@ -22,7 +22,7 @@ async function getResults(obj: Handle | AxeResults, options: MatcherOptions) {
       }
     } else {
       const handle = obj as Handle
-      return waitForAxeResults(handle, options);
+      return waitForAxeResults(handle, options)
     }
 }
 

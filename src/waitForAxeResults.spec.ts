@@ -11,8 +11,8 @@ test.describe("waitForAxeResults", () => {
   })
 
   test("should not be ok for page with axe violations", async ({ page }) => {
-    const content = await readFile("inaccessible.html");
-    await page.setContent(content);
+    const content = await readFile("inaccessible.html")
+    await page.setContent(content)
     const { ok } = await waitForAxeResults(page)
     await expect(ok).toBeFalsy()
   })
