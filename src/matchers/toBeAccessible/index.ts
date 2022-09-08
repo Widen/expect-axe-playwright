@@ -14,15 +14,15 @@ const summarize = (violations: Result[]) =>
     .join(', ')
 
 async function getResults(obj: Handle | AxeResults, options: MatcherOptions) {
-    if ((obj as AxeResults).violations) {
-      const results = obj as AxeResults
-      return {
-        results,
-        ok: !results.violations.length
-      }
-    } else {
-      return waitForAxeResults(obj as Handle, options)
+  if ((obj as AxeResults).violations) {
+    const results = obj as AxeResults
+    return {
+      results,
+      ok: !results.violations.length,
     }
+  } else {
+    return waitForAxeResults(obj as Handle, options)
+  }
 }
 
 export async function toBeAccessible(

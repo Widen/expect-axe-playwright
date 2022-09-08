@@ -1,9 +1,9 @@
-import test from "@playwright/test"
-import type { AxeResults, RunOptions } from "axe-core"
-import { Handle, resolveLocator } from "./utils/locator"
-import merge from "merge-deep"
-import { poll } from "./utils/poll"
-import { injectAxe, runAxe } from "./utils/axe"
+import test from '@playwright/test'
+import type { AxeResults, RunOptions } from 'axe-core'
+import { Handle, resolveLocator } from './utils/locator'
+import merge from 'merge-deep'
+import { poll } from './utils/poll'
+import { injectAxe, runAxe } from './utils/axe'
 
 /**
  * Injects axe onto page, waits for the page to be ready, then runs axe against
@@ -29,4 +29,3 @@ export async function waitForAxeResults(
     }
   })
 }
-
