@@ -81,7 +81,7 @@ to the matcher:
 import { runAxe } from 'expect-axe-playwright'
 
 test('should be accessible', async ({ page }) => {
-  const { results } = runAxe(page)
+  const { results } = await waitForAxeResults(page)
   await expect(results).toBeAccessible()
 });
 ```

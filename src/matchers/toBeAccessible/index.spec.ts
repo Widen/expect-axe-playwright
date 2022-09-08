@@ -129,4 +129,16 @@ test.describe.parallel('toBeAccessible', () => {
       .catch(() => Promise.resolve())
     expect(attachmentExists(filename)).toBe(true)
   })
+
+  test.describe('with Axe results object', async () => {
+    test('positive', async () => {
+      const results = { violations: [] }
+      await expect(results).toBeAccessible()
+    })
+
+    test('negative', async () => {
+      const results = { violations: [{ id: 'foo', nodes: [] }] }
+      await expect(results).not.toBeAccessible()
+    })
+  })
 })

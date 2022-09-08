@@ -1,3 +1,3 @@
 import matchers from './matchers'
-export { runAxe } from './axe'
+export { waitForAxeResults } from './waitForAxeResults'
 export default matchers

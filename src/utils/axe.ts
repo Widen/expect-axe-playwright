@@ -30,7 +30,7 @@ export async function injectAxe(locator: Locator) {
  * Runs axe on an element handle. The script must already be injected
  * using `injectAxe`.
  */
-export function runAxeAfterInject(locator: Locator, options: RunOptions = {}) {
+export function runAxe(locator: Locator, options: RunOptions = {}) {
   return locator.evaluate<AxeResults, RunOptions>(
     (el, options) => window.axe.run(el, options),
     options

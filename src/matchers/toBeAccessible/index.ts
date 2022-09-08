@@ -2,36 +2,46 @@ import test from '@playwright/test'
 import type { MatcherState } from '@playwright/test/types/expect-types'
 import type { AxeResults, Result } from 'axe-core'
 import type { MatcherOptions } from '../../types'
-import type { Handle } from '../../utils/matcher'
+import type { Handle } from '../../utils/locator'
 import createHTMLReport from 'axe-reporter-html'
+import merge from 'merge-deep'
 import { attach } from '../../utils/attachments'
-import { runAxe } from '../../axe'
+import { waitForAxeResults } from '../../waitForAxeResults'
 
 const summarize = (violations: Result[]) =>
   violations
     .map((violation) => `${violation.id}(${violation.nodes.length})`)
     .join(', ')
 
+async function getResults(obj: Handle | AxeResults, options: MatcherOptions) {
+    if ((obj as AxeResults).violations) {
+      const results = obj as AxeResults
+      return {
+        results,
+        ok: !results.violations.length
+      }
+    } else {
+      const handle = obj as Handle
+      return waitForAxeResults(handle, options);
+    }
+}
+
 export async function toBeAccessible(
   this: MatcherState,
-  handleOrResults: Handle | AxeResults,
-  { timeout, filename = 'axe-report.html', ...options }: MatcherOptions = {}
+  obj: Handle | AxeResults,
+  options: MatcherOptions = {}
 ) {
   try {
-    let ok: boolean
-    let results: AxeResults
-    if ((handleOrResults as AxeResults).violations) {
-      results = handleOrResults as AxeResults
-      ok = !!results.violations.length
-    } else {
-      ({ ok, results } = await runAxe(handleOrResults as Handle, { timeout, ...options }))
-    }
+    const { results, ok } = await getResults(obj, options)
+
+    const info = test.info()
+    const opts = merge(info.project.use.axeOptions, options)
 
     // If there are violations, attach an HTML report to the test for additional
     // visibility into the issue.
     if (!ok) {
       const html = await createHTMLReport(results)
-      const info = test.info()
+      const filename = opts.filename || 'axe-report.html'
       await attach(info, filename, html)
     }
 
