@@ -78,12 +78,12 @@ object](https://www.deque.com/axe/core-documentation/api-documentation/#results-
 to the matcher:
 
 ```js
-import { runAxe } from 'expect-axe-playwright'
+import { waitForAxeResults } from 'expect-axe-playwright'
 
 test('should be accessible', async ({ page }) => {
   const { results } = await waitForAxeResults(page)
   await expect(results).toBeAccessible()
-});
+})
 ```
 
 #### Axe run options
