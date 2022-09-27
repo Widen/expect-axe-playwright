@@ -1,5 +1,11 @@
 # expect-axe-playwright
 
+## 2.3.0
+
+### Minor Changes
+
+- 4276db6: Allow matcher to accept Axe results object
+
 ## 2.2.1
 
 ### Patch Changes
