@@ -21,7 +21,7 @@ interface MatcherOptions extends RunOptions {
 
 interface AxePlaywrightMatchers<R> {
   /**
-   * Verifies that the page, frame, or locator is accessible.
+   * Verifies that the page, frame, or locator passes Axe tests.
    * @param options - Options to pass to axe-core. See the [axe-core documentation](https://www.deque.com/axe/core-documentation/api-documentation/#options-parameter) for more details.
    */
   toPassAxe(options?: MatcherOptions): Promise<R>
