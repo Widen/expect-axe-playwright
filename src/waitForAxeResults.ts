@@ -12,10 +12,7 @@ import { injectAxe, runAxe } from './utils/axe'
 export async function waitForAxeResults(
   handle: Handle,
   { timeout, ...options }: { timeout?: number } & RunOptions = {}
-): Promise<{
-  ok: boolean
-  results: AxeResults
-}> {
+) {
   const info = test.info()
   const opts = merge(info.project.use.axeOptions, options)
   const locator = resolveLocator(handle)
