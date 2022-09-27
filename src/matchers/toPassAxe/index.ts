@@ -18,7 +18,7 @@ interface MatcherOptions extends RunOptions {
   filename?: string
 }
 
-export async function toHaveNoAxeViolations(
+export async function toPassAxe(
   this: MatcherState,
   handle: Handle,
   { timeout, ...options }: MatcherOptions = {}
@@ -51,7 +51,7 @@ export async function toHaveNoAxeViolations(
       pass: ok,
       message: () => {
         return (
-          this.utils.matcherHint('toHaveNoAxeViolations', undefined, undefined, this) +
+          this.utils.matcherHint('toPassAxe', undefined, undefined, this) +
           '\n\n' +
           'Expected: No violations\n' +
           `Received: ${results.violations.length} violations\n\n` +
@@ -65,16 +65,4 @@ export async function toHaveNoAxeViolations(
       message: () => (err as Error).message,
     }
   }
-}
-
-// DEPRECATED
-export function toBeAccessible(
-  this: MatcherState,
-  handle: Handle,
-  options: MatcherOptions = {}
-) {
-  console.error(
-    'DEPRECATED: `toBeAccessible` is no longer supported. Please replace with `toHaveNoAxeViolations`. For more info: https://github.com/Widen/expect-axe-playwright/#deprecated-tobeaccessible'
-  )
-  return toHaveNoAxeViolations.call(this, handle, options)
 }

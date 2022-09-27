@@ -50,44 +50,52 @@ the rescue with the following features.
 Here are a few examples:
 
 ```js
-await expect(page).toHaveNoAxeViolations() // Page
-await expect(page.locator('#foo')).toHaveNoAxeViolations() // Locator
-await expect(page.frameLocator('iframe')).toHaveNoAxeViolations() // Frame locator
+await expect(page).toPassAxe() // Page
+await expect(page.locator('#foo')).toPassAxe() // Locator
+await expect(page.frameLocator('iframe')).toPassAxe() // Frame locator
 ```
 
 ## API Documentation
 
-### `toHaveNoAxeViolations`
+### `toPassAxe`
 
-This function checks if a given page, frame, or element handle is accessible.
+This function checks if a given page, frame, or element handle passes a set of accessibility checks.
 
 You can test the entire page:
 
 ```js
-await expect(page).toHaveNoAxeViolations()
+await expect(page).toPassAxe()
 ```
 
 Or pass a locator to test part of the page:
 
 ```js
-await expect(page.locator('#my-element')).toHaveNoAxeViolations()
+await expect(page.locator('#my-element')).toPassAxe()
 ```
 
-#### Deprecated: `toBeAccessible`
-
-Why was `toBeAccessible` deprecated?
-
-Imagine the following line of test code:
+#### Word of Caution: Limitations to Accessibility Tests
 
 ```js
-expect(myApp).toBeSecure();
+toPassAxe() !== toBeAccessible()
 ```
 
-Accessibility is analogous in ways to security. It's very hard to say that
-anything is secure because you never know when someone is going to find some new
-security vulnerability in your code. Similarly, it's very hard to say that
-anything you've built is totally accessibile because you never know when
-somebody will uncover a barrier you didn't know was there.
+It's important to keep in mind that if your page passes the set of accessibility
+checks that you've configured for Axe, that does not mean that your page is free
+of all accessibility barriers.
+
+In fact, automated testing can only catch a fraction of the most common kinds of
+accessibility errors.
+
+Accessibility is analogous in ways to security. Imagine the following code:
+
+```js
+expect(myApp).toBeSecure()
+```
+
+It's very hard to say that anything is secure because you never know when
+someone is going to uncover a security vulnerability in your code. Similarly,
+it's very hard to say that anything you've built is totally accessible because
+you never know when somebody will uncover a barrier you didn't know was there.
 
 Furthermore, of the commonly known accessibility barriers, only some can be
 found through automated testing, which is then further subject to the
@@ -96,9 +104,9 @@ automated accessibility testing
 tools](https://accessibility.blog.gov.uk/2017/02/24/what-we-found-when-we-tested-tools-on-the-worlds-least-accessible-webpage/)
 by the UK's Government Digital Service confirms this.
 
-To copy from the [jest-axe](https://github.com/NickColley/jest-axe) repo's README,
-tools like Axe are similar to code linters and spell checkers: they can find
-common issues but cannot guarantee that what you build works for users.
+To echo [jest-axe](https://github.com/NickColley/jest-axe), tools like Axe are
+similar to code linters and spell checkers: they can find common issues but
+cannot guarantee that what you build works for users.
 
 You'll also need to:
 
@@ -117,7 +125,7 @@ To configure a single assertion to use a different set of options, pass an
 object with the desired arguments to the matcher.
 
 ```js
-await expect(page).toHaveNoAxeViolations({
+await expect(page).toPassAxe({
   rules: {
     'color-contrast': { enabled: false },
   },
@@ -150,7 +158,7 @@ You can configure options that should be passed to the aXe HTML reporter at
 the assertion level.
 
 ```js
-await expect(page.locator('#my-element')).toHaveNoAxeViolations({
+await expect(page.locator('#my-element')).toPassAxe({
   filename: 'my-report.html',
 })
 ```

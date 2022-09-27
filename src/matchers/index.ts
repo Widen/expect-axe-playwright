@@ -1,7 +1,5 @@
-import { toHaveNoAxeViolations, toBeAccessible } from './toHaveNoAxeViolations'
+import { toPassAxe } from './toPassAxe'
 
 export default {
-  toHaveNoAxeViolations,
-  // DEPRECATED
-  toBeAccessible,
+  toPassAxe
 }

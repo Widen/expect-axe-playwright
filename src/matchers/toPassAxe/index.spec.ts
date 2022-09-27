@@ -2,19 +2,19 @@ import { expect, test } from '@playwright/test'
 import { attachmentExists } from '../../utils/attachments'
 import { readFile } from '../../utils/file'
 
-test.describe.parallel('toHaveNoAxeViolations', () => {
+test.describe.parallel('toPassAxe', () => {
   test.describe('page', () => {
     test('positive', async ({ page }) => {
       const content = await readFile('accessible.html')
       await page.setContent(content)
-      await expect(page).toHaveNoAxeViolations()
+      await expect(page).toPassAxe()
     })
 
     test('negative', async ({ page }) => {
       test.fail()
       const content = await readFile('inaccessible.html')
       await page.setContent(content)
-      await expect(page).toHaveNoAxeViolations({ timeout: 2000 })
+      await expect(page).toPassAxe({ timeout: 2000 })
     })
   })
 
@@ -22,14 +22,14 @@ test.describe.parallel('toHaveNoAxeViolations', () => {
     test('positive', async ({ page }) => {
       const content = `<iframe src="http://localhost:${process.env.SERVER_PORT}/accessible.html">`
       await page.setContent(content)
-      await expect(page.frameLocator('iframe')).toHaveNoAxeViolations()
+      await expect(page.frameLocator('iframe')).toPassAxe()
     })
 
     test('negative', async ({ page }) => {
       test.fail()
       const content = `<iframe src="http://localhost:${process.env.SERVER_PORT}/inaccessible.html">`
       await page.setContent(content)
-      await expect(page.frameLocator('iframe')).toHaveNoAxeViolations({
+      await expect(page.frameLocator('iframe')).toPassAxe({
         timeout: 2000,
       })
     })
@@ -42,7 +42,7 @@ test.describe.parallel('toHaveNoAxeViolations', () => {
 
       const iframe = await page.$('iframe')
       const frame = await iframe!.contentFrame()
-      await expect(frame).toHaveNoAxeViolations()
+      await expect(frame).toPassAxe()
     })
 
     test('negative', async ({ page }) => {
@@ -52,20 +52,20 @@ test.describe.parallel('toHaveNoAxeViolations', () => {
 
       const iframe = await page.$('iframe')
       const frame = await iframe!.contentFrame()
-      await expect(frame).toHaveNoAxeViolations({ timeout: 2000 })
+      await expect(frame).toPassAxe({ timeout: 2000 })
     })
   })
 
   test.describe('locator', () => {
     test('positive', async ({ page }) => {
       await page.setContent('<button id="foo">Hello</button>')
-      await expect(page.locator('#foo')).toHaveNoAxeViolations()
+      await expect(page.locator('#foo')).toPassAxe()
     })
 
     test('negative', async ({ page }) => {
       test.fail()
       await page.setContent('<button id="foo"></button>')
-      await expect(page.locator('#foo')).toHaveNoAxeViolations({ timeout: 2000 })
+      await expect(page.locator('#foo')).toPassAxe({ timeout: 2000 })
     })
   })
 
@@ -73,7 +73,7 @@ test.describe.parallel('toHaveNoAxeViolations', () => {
     await page.setContent('<button id="foo"></button>')
 
     await Promise.all([
-      expect(page.locator('#foo')).toHaveNoAxeViolations(),
+      expect(page.locator('#foo')).toPassAxe(),
       page
         .waitForTimeout(1000)
         .then(() => page.setContent('<button id="foo">Hello</button>')),
@@ -82,7 +82,7 @@ test.describe.parallel('toHaveNoAxeViolations', () => {
 
   test('should allow providing custom run options', async ({ page }) => {
     await page.setContent('<button id="foo"></button>')
-    await expect(page.locator('#foo')).toHaveNoAxeViolations({
+    await expect(page.locator('#foo')).toPassAxe({
       rules: {
         'button-name': { enabled: false },
       },
@@ -91,10 +91,10 @@ test.describe.parallel('toHaveNoAxeViolations', () => {
 
   test('should respect project level options', async ({ page }) => {
     await page.setContent('<body><h1></h1></body>')
-    await expect(page).toHaveNoAxeViolations()
+    await expect(page).toPassAxe()
 
     await page.setContent('<body><h1></h1></body>')
-    await expect(page).not.toHaveNoAxeViolations({
+    await expect(page).not.toPassAxe({
       rules: { 'empty-heading': { enabled: true } },
       timeout: 2000,
     })
@@ -103,7 +103,7 @@ test.describe.parallel('toHaveNoAxeViolations', () => {
   test('should throw an error after the timeout exceeds', async ({ page }) => {
     await page.setContent('<body><button></button></body>')
     const start = Date.now()
-    const fn = () => expect(page).toHaveNoAxeViolations({ timeout: 1000 })
+    const fn = () => expect(page).toPassAxe({ timeout: 1000 })
     await expect(fn).rejects.toThrowError()
 
     const duration = Date.now() - start
@@ -115,7 +115,7 @@ test.describe.parallel('toHaveNoAxeViolations', () => {
     const content = await readFile('inaccessible.html')
     await page.setContent(content)
     await expect(page)
-      .toHaveNoAxeViolations({ timeout: 2000 })
+      .toPassAxe({ timeout: 2000 })
       .catch(() => Promise.resolve())
     expect(attachmentExists('axe-report.html')).toBe(true)
   })
@@ -125,7 +125,7 @@ test.describe.parallel('toHaveNoAxeViolations', () => {
     const content = await readFile('inaccessible.html')
     await page.setContent(content)
     await expect(page)
-      .toHaveNoAxeViolations({ timeout: 2000, filename })
+      .toPassAxe({ timeout: 2000, filename })
       .catch(() => Promise.resolve())
     expect(attachmentExists(filename)).toBe(true)
   })
