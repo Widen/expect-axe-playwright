@@ -73,6 +73,19 @@ Or pass a locator to test part of the page:
 await expect(page.locator('#my-element')).toPassAxe()
 ```
 
+You can also pass an [Axe results
+object](https://www.deque.com/axe/core-documentation/api-documentation/#results-object)
+to the matcher:
+
+```js
+import { waitForAxeResults } from 'expect-axe-playwright'
+
+test('should pass common accessibility checks', async ({ page }) => {
+  const { results } = await waitForAxeResults(page)
+  await expect(results).toPassAxe()
+})
+```
+
 #### Word of Caution: Limitations to Accessibility Tests
 
 ```js

@@ -129,4 +129,16 @@ test.describe.parallel('toPassAxe', () => {
       .catch(() => Promise.resolve())
     expect(attachmentExists(filename)).toBe(true)
   })
+
+  test.describe('with Axe results object', async () => {
+    test('positive', async () => {
+      const results = { violations: [] }
+      await expect(results).toPassAxe()
+    })
+
+    test('negative', async () => {
+      const results = { violations: [{ id: 'foo', nodes: [] }] }
+      await expect(results).not.toPassAxe()
+    })
+  })
 })

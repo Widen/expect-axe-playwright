@@ -1,47 +1,43 @@
 import test from '@playwright/test'
 import type { MatcherState } from '@playwright/test/types/expect-types'
-import type { Result, RunOptions } from 'axe-core'
+import type { AxeResults, Result } from 'axe-core'
+import type { MatcherOptions } from '../../types'
+import type { Handle } from '../../utils/locator'
+import { getOptions } from '../../utils/options'
 import createHTMLReport from 'axe-reporter-html'
-import merge from 'merge-deep'
 import { attach } from '../../utils/attachments'
-import { injectAxe, runAxe } from '../../utils/axe'
-import { Handle, resolveLocator } from '../../utils/matcher'
-import { poll } from '../../utils/poll'
+import { waitForAxeResults } from '../../waitForAxeResults'
 
 const summarize = (violations: Result[]) =>
   violations
     .map((violation) => `${violation.id}(${violation.nodes.length})`)
     .join(', ')
 
-interface MatcherOptions extends RunOptions {
-  timeout?: number
-  filename?: string
+async function getResults(obj: Handle | AxeResults, options: MatcherOptions) {
+  if ((obj as AxeResults).violations) {
+    const results = obj as AxeResults
+    return {
+      results,
+      ok: !results.violations.length,
+    }
+  } else {
+    return waitForAxeResults(obj as Handle, options)
+  }
 }
 
 export async function toPassAxe(
   this: MatcherState,
-  handle: Handle,
-  { timeout, ...options }: MatcherOptions = {}
+  obj: Handle | AxeResults,
+  options: MatcherOptions = {}
 ) {
   try {
-    const locator = resolveLocator(handle)
-    await injectAxe(locator)
-
-    const info = test.info()
-    const opts = merge(info.project.use.axeOptions, options)
-
-    const { ok, results } = await poll(locator, timeout, async () => {
-      const results = await runAxe(locator, opts)
-
-      return {
-        ok: !results.violations.length,
-        results,
-      }
-    })
+    const { results, ok } = await getResults(obj, options)
 
     // If there are violations, attach an HTML report to the test for additional
     // visibility into the issue.
     if (!ok) {
+      const info = test.info()
+      const opts = getOptions(options)
       const html = await createHTMLReport(results)
       const filename = opts.filename || 'axe-report.html'
       await attach(info, filename, html)
