@@ -1,5 +1,5 @@
-import { toBeAccessible } from './toBeAccessible'
+import { toPassAxe } from './toPassAxe'
 
 export default {
-  toBeAccessible,
+  toPassAxe,
 }

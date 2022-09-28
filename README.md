@@ -50,27 +50,27 @@ the rescue with the following features.
 Here are a few examples:
 
 ```js
-await expect(page).toBeAccessible() // Page
-await expect(page.locator('#foo')).toBeAccessible() // Locator
-await expect(page.frameLocator('iframe')).toBeAccessible() // Frame locator
+await expect(page).toPassAxe() // Page
+await expect(page.locator('#foo')).toPassAxe() // Locator
+await expect(page.frameLocator('iframe')).toPassAxe() // Frame locator
 ```
 
 ## API Documentation
 
-### `toBeAccessible`
+### `toPassAxe`
 
-This function checks if a given page, frame, or element handle is accessible.
+This function checks if a given page, frame, or element handle passes a set of accessibility checks.
 
 You can test the entire page:
 
 ```js
-await expect(page).toBeAccessible()
+await expect(page).toPassAxe()
 ```
 
 Or pass a locator to test part of the page:
 
 ```js
-await expect(page.locator('#my-element')).toBeAccessible()
+await expect(page.locator('#my-element')).toPassAxe()
 ```
 
 You can also pass an [Axe results
@@ -80,11 +80,54 @@ to the matcher:
 ```js
 import { waitForAxeResults } from 'expect-axe-playwright'
 
-test('should be accessible', async ({ page }) => {
+test('should pass common accessibility checks', async ({ page }) => {
   const { results } = await waitForAxeResults(page)
-  await expect(results).toBeAccessible()
+  await expect(results).toPassAxe()
 })
 ```
+
+#### Word of Caution: Limitations to Accessibility Tests
+
+```js
+toPassAxe() !== toBeAccessible()
+```
+
+It's important to keep in mind that if your page passes the set of accessibility
+checks that you've configured for Axe, that does not mean that your page is free
+of all accessibility barriers.
+
+In fact, automated testing can only catch a fraction of the most common kinds of
+accessibility errors.
+
+Accessibility is analogous in ways to security. Imagine the following code:
+
+```js
+expect(myApp).toBeSecure()
+```
+
+It's very hard to say that anything is secure because you never know when
+someone is going to uncover a security vulnerability in your code. Similarly,
+it's very hard to say that anything you've built is totally accessible because
+you never know when somebody will uncover a barrier you didn't know was there.
+
+Furthermore, of the commonly known accessibility barriers, only some can be
+found through automated testing, which is then further subject to the
+effectiveness of the checker being used. A 2017 study on the [effectiveness of
+automated accessibility testing
+tools](https://accessibility.blog.gov.uk/2017/02/24/what-we-found-when-we-tested-tools-on-the-worlds-least-accessible-webpage/)
+by the UK's Government Digital Service confirms this.
+
+To echo [jest-axe](https://github.com/NickColley/jest-axe), tools like Axe are
+similar to code linters and spell checkers: they can find common issues but
+cannot guarantee that what you build works for users.
+
+You'll also need to:
+
+- test your interface with the [assistive technologies that real users
+  use](https://www.gov.uk/service-manual/technology/testing-with-assistive-technologies#when-to-test)
+  (see also [WebAIM's survey
+  results](https://webaim.org/projects/screenreadersurvey8/#primary)).
+- include disabled people in user research.
 
 #### Axe run options
 
@@ -95,7 +138,7 @@ To configure a single assertion to use a different set of options, pass an
 object with the desired arguments to the matcher.
 
 ```js
-await expect(page).toBeAccessible({
+await expect(page).toPassAxe({
   rules: {
     'color-contrast': { enabled: false },
   },
@@ -128,7 +171,7 @@ You can configure options that should be passed to the aXe HTML reporter at
 the assertion level.
 
 ```js
-await expect(page.locator('#my-element')).toBeAccessible({
+await expect(page.locator('#my-element')).toPassAxe({
   filename: 'my-report.html',
 })
 ```

@@ -25,7 +25,7 @@ async function getResults(obj: Handle | AxeResults, options: MatcherOptions) {
   }
 }
 
-export async function toBeAccessible(
+export async function toPassAxe(
   this: MatcherState,
   obj: Handle | AxeResults,
   options: MatcherOptions = {}
@@ -47,7 +47,7 @@ export async function toBeAccessible(
       pass: ok,
       message: () => {
         return (
-          this.utils.matcherHint('toBeAccessible', undefined, undefined, this) +
+          this.utils.matcherHint('toPassAxe', undefined, undefined, this) +
           '\n\n' +
           'Expected: No violations\n' +
           `Received: ${results.violations.length} violations\n\n` +
