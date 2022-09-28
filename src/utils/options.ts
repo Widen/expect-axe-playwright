@@ -8,6 +8,5 @@ import merge from 'merge-deep'
  */
 export function getOptions(options: MatcherOptions = {}) {
   const info = test.info()
-  const opts = merge(info.project.use.axeOptions, options)
-  return opts
+  return merge(info.project.use.axeOptions, options)
 }
