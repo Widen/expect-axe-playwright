@@ -1,5 +1,5 @@
 import test from '@playwright/test'
-import type { AxeResults, RunOptions } from 'axe-core'
+import type { RunOptions } from 'axe-core'
 import { Handle, resolveLocator } from './utils/locator'
 import merge from 'merge-deep'
 import { poll } from './utils/poll'
