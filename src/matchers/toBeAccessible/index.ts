@@ -3,8 +3,8 @@ import type { MatcherState } from '@playwright/test/types/expect-types'
 import type { AxeResults, Result } from 'axe-core'
 import type { MatcherOptions } from '../../types'
 import type { Handle } from '../../utils/locator'
+import { getOptions } from '../../utils/options'
 import createHTMLReport from 'axe-reporter-html'
-import merge from 'merge-deep'
 import { attach } from '../../utils/attachments'
 import { waitForAxeResults } from '../../waitForAxeResults'
 
@@ -33,12 +33,11 @@ export async function toBeAccessible(
   try {
     const { results, ok } = await getResults(obj, options)
 
-    const info = test.info()
-    const opts = merge(info.project.use.axeOptions, options)
-
     // If there are violations, attach an HTML report to the test for additional
     // visibility into the issue.
     if (!ok) {
+      const info = test.info()
+      const opts = getOptions(options)
       const html = await createHTMLReport(results)
       const filename = opts.filename || 'axe-report.html'
       await attach(info, filename, html)
