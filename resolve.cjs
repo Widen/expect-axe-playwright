@@ -1,0 +1,1 @@
+exports.resolve = require.resolve
