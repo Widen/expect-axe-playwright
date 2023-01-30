@@ -1,5 +1,5 @@
-import path from 'path'
-import fs from 'fs/promises'
+import path from 'node:path'
+import fs from 'node:fs/promises'
 import { test, TestInfo } from '@playwright/test'
 
 export async function attach(info: TestInfo, name: string, data: string) {

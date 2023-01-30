@@ -1,7 +1,6 @@
-import path from 'path'
-import fs from 'fs'
+import fs from 'node:fs/promises'
 
 export async function readFile(filename: string) {
-  const filePath = path.join(__dirname, '../config/templates', filename)
-  return fs.promises.readFile(filePath, { encoding: 'utf-8' })
+  const fileURL = new URL(`../config/templates/${filename}`, import.meta.url)
+  return fs.readFile(fileURL, { encoding: 'utf-8' })
 }

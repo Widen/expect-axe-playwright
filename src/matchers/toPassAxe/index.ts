@@ -1,12 +1,12 @@
-import test from '@playwright/test'
+import { test } from '@playwright/test'
 import type { MatcherState } from '@playwright/test/types/expect-types'
 import type { AxeResults, Result } from 'axe-core'
-import type { MatcherOptions } from '../../types'
-import type { Handle } from '../../utils/locator'
-import { getOptions } from '../../utils/options'
+import type { MatcherOptions } from '../../types/index.js'
+import type { Handle } from '../../utils/locator.js'
+import { getOptions } from '../../utils/options.js'
 import createHTMLReport from 'axe-reporter-html'
-import { attach } from '../../utils/attachments'
-import { waitForAxeResults } from '../../waitForAxeResults'
+import { attach } from '../../utils/attachments.js'
+import { waitForAxeResults } from '../../waitForAxeResults.js'
 
 const summarize = (violations: Result[]) =>
   violations

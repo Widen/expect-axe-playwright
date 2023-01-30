@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
-import { attachmentExists } from '../../utils/attachments'
-import { readFile } from '../../utils/file'
+import { attachmentExists } from '../../utils/attachments.js'
+import { readFile } from '../../utils/file.js'
 
 test.describe.parallel('toPassAxe', () => {
   test.describe('page', () => {

@@ -1,8 +1,8 @@
 import type { RunOptions } from 'axe-core'
-import { Handle, resolveLocator } from './utils/locator'
-import { poll } from './utils/poll'
-import { injectAxe, runAxe } from './utils/axe'
-import { getOptions } from './utils/options'
+import { Handle, resolveLocator } from './utils/locator.js'
+import { poll } from './utils/poll.js'
+import { injectAxe, runAxe } from './utils/axe.js'
+import { getOptions } from './utils/options.js'
 
 /**
  * Injects axe onto page, waits for the page to be ready, then runs axe against
