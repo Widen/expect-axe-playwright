@@ -1,2 +1,2 @@
-lib/config/
+dist/config/
 *.spec.js
