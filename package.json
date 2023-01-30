@@ -33,17 +33,9 @@
     "import": "./dist/index.js",
     "require": "./dist/index.cjs"
   },
-  "imports": {
-    "#resolve": {
-      "types": "./resolve.d.ts",
-      "import": "./resolve.js",
-      "require": "./resolve.cjs"
-    }
-  },
   "files": [
-    "lib",
-    "global.d.ts",
-    "resolve.*"
+    "dist",
+    "global.d.ts"
   ],
   "peerDependencies": {
     "@playwright/test": ">=1.20.0"
@@ -56,6 +48,7 @@
   "dependencies": {
     "axe-core": "^4.6.3",
     "axe-reporter-html": "^1.0.0",
+    "isomorphic-resolve": "^1.0.0",
     "merge-deep": "^3.0.3"
   },
   "devDependencies": {

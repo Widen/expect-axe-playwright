@@ -1,7 +1,7 @@
 import type { Locator } from '@playwright/test'
 import type { AxePlugin, AxeResults, RunOptions } from 'axe-core'
 import fs from 'node:fs'
-import { resolve } from '#resolve'
+import resolve from 'isomorphic-resolve'
 
 declare global {
   interface Window {
