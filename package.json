@@ -19,6 +19,14 @@
     "axe-core",
     "playwright-test"
   ],
+  "scripts": {
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "build": "tsup ./src/index.ts --format cjs,esm",
+    "release": "./scripts/release.sh",
+    "test": "playwright test",
+    "ts": "tsc"
+  },
   "type": "module",
   "exports": {
     "types": "./global.d.ts",
@@ -37,13 +45,6 @@
     "global.d.ts",
     "resolve.*"
   ],
-  "scripts": {
-    "lint": "eslint .",
-    "build": "tsup ./src/index.ts --format cjs,esm",
-    "release": "./scripts/release.sh",
-    "test": "playwright test",
-    "ts": "tsc"
-  },
   "peerDependencies": {
     "@playwright/test": ">=1.20.0"
   },

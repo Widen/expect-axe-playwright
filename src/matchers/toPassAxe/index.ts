@@ -25,7 +25,7 @@ async function getResults(obj: Handle | AxeResults, options: MatcherOptions) {
 }
 
 export async function toPassAxe(
-  this: ReturnType<typeof expect['getState']>,
+  this: ReturnType<(typeof expect)['getState']>,
   obj: Handle | AxeResults,
   options: MatcherOptions = {}
 ) {
