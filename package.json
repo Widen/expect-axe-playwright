@@ -54,7 +54,7 @@
   },
   "dependencies": {
     "axe-core": "^4.6.3",
-    "axe-reporter-html": "^0.1.2",
+    "axe-reporter-html": "^1.0.0",
     "merge-deep": "^3.0.3"
   },
   "devDependencies": {

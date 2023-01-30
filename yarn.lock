@@ -468,7 +468,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/ejs@npm:^3.1.0":
+"@types/ejs@npm:^3.1.1":
   version: 3.1.1
   resolution: "@types/ejs@npm:3.1.1"
   checksum: 12fa444920aaa70af2fae4424fa62b49c23b31a37129c428b7c9f9068e58c0696b4e5601b0449f87bae8794e039c679a43651c356c34f17d1bb460456dd41441
@@ -856,21 +856,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axe-core@npm:^4.4.1, axe-core@npm:^4.6.3":
+"axe-core@npm:^4.6.3":
   version: 4.6.3
   resolution: "axe-core@npm:4.6.3"
   checksum: d0c46be92b9707c48b88a53cd5f471b155a2bfc8bf6beffb514ecd14e30b4863e340b5fc4f496d82a3c562048088c1f3ff5b93b9b3b026cb9c3bfacfd535da10
   languageName: node
   linkType: hard
 
-"axe-reporter-html@npm:^0.1.2":
-  version: 0.1.2
-  resolution: "axe-reporter-html@npm:0.1.2"
+"axe-reporter-html@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "axe-reporter-html@npm:1.0.0"
   dependencies:
-    "@types/ejs": ^3.1.0
-    axe-core: ^4.4.1
-    ejs: ^3.1.6
-  checksum: dbf45c54cdb7d77648283f66236485464bb251587a044757b95971db4b5a1a64f85b5da6ba9137d13aac6b23e65daf11783bc3bacf7c4356b1099190e49eebaf
+    "@types/ejs": ^3.1.1
+    axe-core: ^4.6.3
+    ejs: ^3.1.8
+  checksum: c7cc78999c27438bd2e6c1d070362b06d19d72864426a36bd4540b60adfd68eaa1f8f6ae2e362fa784729882f9056a0a4945da372072353174f8c1012c858ed4
   languageName: node
   linkType: hard
 
@@ -1334,7 +1334,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ejs@npm:^3.1.6":
+"ejs@npm:^3.1.8":
   version: 3.1.8
   resolution: "ejs@npm:3.1.8"
   dependencies:
@@ -1864,7 +1864,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.49.0
     "@typescript-eslint/parser": ^5.49.0
     axe-core: ^4.6.3
-    axe-reporter-html: ^0.1.2
+    axe-reporter-html: ^1.0.0
     eslint: ^8.33.0
     merge-deep: ^3.0.3
     prettier: ^2.8.3
