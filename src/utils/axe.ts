@@ -1,6 +1,7 @@
 import type { Locator } from '@playwright/test'
 import type { AxePlugin, AxeResults, RunOptions } from 'axe-core'
-import fs from 'fs'
+import fs from 'node:fs'
+import resolve from 'isomorphic-resolve'
 
 declare global {
   interface Window {
@@ -19,7 +20,7 @@ export async function injectAxe(locator: Locator) {
   }
 
   // Read the source code from the axe-core library
-  const filePath = require.resolve('axe-core/axe.min.js')
+  const filePath = resolve('axe-core/axe.min.js')
   const axe = await fs.promises.readFile(filePath, 'utf-8')
 
   // Inject the script into the page

@@ -1,6 +1,6 @@
 import http from 'http'
 import type { AddressInfo } from 'net'
-import { readFile } from '../utils/file'
+import { readFile } from '../utils/file.js'
 
 function listener(req: http.IncomingMessage, res: http.ServerResponse) {
   const file = req.url!.replace('/', '')

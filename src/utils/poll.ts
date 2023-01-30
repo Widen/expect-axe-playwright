@@ -1,4 +1,4 @@
-import test, { Locator } from '@playwright/test'
+import { Locator, test } from '@playwright/test'
 
 interface TestInfo {
   _expect?: { timeout?: number }

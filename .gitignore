@@ -1,5 +1,5 @@
 .vscode/
-lib/
+dist/
 test-results/
 
 # Yarn

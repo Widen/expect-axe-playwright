@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
-import { readFile } from './utils/file'
-import { waitForAxeResults } from './waitForAxeResults'
+import { readFile } from './utils/file.js'
+import { waitForAxeResults } from './waitForAxeResults.js'
 
 test.describe('waitForAxeResults', () => {
   test('should be ok for page with no axe violations', async ({ page }) => {

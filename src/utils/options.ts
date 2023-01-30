@@ -1,5 +1,5 @@
-import type { MatcherOptions } from '../types'
-import test from '@playwright/test'
+import type { MatcherOptions } from '../types/index.js'
+import { test } from '@playwright/test'
 import merge from 'merge-deep'
 
 /**
