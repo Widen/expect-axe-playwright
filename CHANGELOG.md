@@ -1,5 +1,11 @@
 # expect-axe-playwright
 
+## 4.0.0
+
+### Major Changes
+
+- ea84151: Update to ESM-first. CommonJS is still supported.
+
 ## 3.0.0
 
 ### Major Changes
