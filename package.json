@@ -1,6 +1,6 @@
 {
   "name": "expect-axe-playwright",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "Expect matchers to perform Axe accessibility tests in your Playwright tests.",
   "author": "Widen",
   "license": "ISC",
@@ -28,6 +28,7 @@
     "ts": "tsc"
   },
   "type": "module",
+  "types": "./global.d.ts",
   "exports": {
     "types": "./global.d.ts",
     "import": "./dist/index.js",

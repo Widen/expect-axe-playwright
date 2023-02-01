@@ -1,5 +1,11 @@
 # expect-axe-playwright
 
+## 4.0.1
+
+### Patch Changes
+
+- Fix missing TypeScript types.
+
 ## 4.0.0
 
 ### Major Changes
