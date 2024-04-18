@@ -1,5 +1,11 @@
 # expect-axe-playwright
 
+## 4.1.0
+
+### Minor Changes
+
+- ca7f25b: Update dependencies
+
 ## 4.0.1
 
 ### Patch Changes
