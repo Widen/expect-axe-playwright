@@ -1,5 +1,5 @@
 ---
-"expect-axe-playwright": minor
+'expect-axe-playwright': minor
 ---
 
 Update dependencies
