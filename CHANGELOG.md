@@ -1,5 +1,11 @@
 # expect-axe-playwright
 
+## 4.1.1
+
+### Patch Changes
+
+- 6e21b8b: remove npmRegistryServer
+
 ## 4.1.0
 
 ### Minor Changes
