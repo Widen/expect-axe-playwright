@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "nodenext",
+    "module": "NodeNext",
     "target": "esnext",
     "moduleResolution": "nodenext",
     "strict": true,
