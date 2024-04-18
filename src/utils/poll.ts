@@ -11,7 +11,7 @@ function getTimeout(timeout: number | undefined) {
 export async function poll<T extends { ok: boolean }>(
   locator: Locator,
   timeout: number | undefined,
-  predicate: () => Promise<T>
+  predicate: () => Promise<T>,
 ): Promise<T> {
   let result: T = null!
   let expired = false
@@ -31,7 +31,7 @@ export async function poll<T extends { ok: boolean }>(
       // TODO: Figure out a non-flaky way to use RAF.
       // await locator.evaluate(() => new Promise(requestAnimationFrame))
       await locator.evaluate(
-        () => new Promise((resolve) => setTimeout(resolve, 250))
+        () => new Promise((resolve) => setTimeout(resolve, 250)),
       )
     }
   } catch (e) {

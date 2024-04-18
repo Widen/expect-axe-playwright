@@ -10,7 +10,7 @@ import { getOptions } from './utils/options.js'
  */
 export async function waitForAxeResults(
   handle: Handle,
-  { timeout, ...options }: { timeout?: number } & RunOptions = {}
+  { timeout, ...options }: { timeout?: number } & RunOptions = {},
 ) {
   const opts = getOptions(options)
   const locator = resolveLocator(handle)

@@ -4,7 +4,7 @@
   "description": "Expect matchers to perform Axe accessibility tests in your Playwright tests.",
   "author": "Widen",
   "license": "ISC",
-  "packageManager": "yarn@3.2.1",
+  "packageManager": "yarn@3.8.1",
   "engines": {
     "node": ">=16.0.0"
   },
@@ -47,21 +47,21 @@
     }
   },
   "dependencies": {
-    "axe-core": "^4.6.3",
-    "axe-reporter-html": "^1.0.0",
+    "axe-core": "^4.9.0",
+    "axe-reporter-html": "^1.1.0",
     "isomorphic-resolve": "^1.0.0",
     "merge-deep": "^3.0.3"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.26.0",
-    "@playwright/test": "^1.30.0",
-    "@types/merge-deep": "^3.0.0",
+    "@changesets/cli": "^2.27.1",
+    "@playwright/test": "^1.42.3",
+    "@types/merge-deep": "^3.0.3",
     "@types/node": "^18.11.18",
-    "@typescript-eslint/eslint-plugin": "^5.49.0",
-    "@typescript-eslint/parser": "^5.49.0",
-    "eslint": "^8.33.0",
-    "prettier": "^2.8.3",
-    "tsup": "^6.5.0",
-    "typescript": "^4.9.4"
+    "@typescript-eslint/eslint-plugin": "^7.7.0",
+    "@typescript-eslint/parser": "^7.7.0",
+    "eslint": "^8.57.0",
+    "prettier": "^3.2.5",
+    "tsup": "^7.3.0",
+    "typescript": "^5.4.5"
   }
 }
