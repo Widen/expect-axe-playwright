@@ -1,5 +1,5 @@
 ---
-"expect-axe-playwright": patch
+'expect-axe-playwright': patch
 ---
 
 remove npmRegistryServer
