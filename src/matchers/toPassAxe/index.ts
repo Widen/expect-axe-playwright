@@ -27,7 +27,7 @@ async function getResults(obj: Handle | AxeResults, options: MatcherOptions) {
 export async function toPassAxe(
   this: ReturnType<(typeof expect)['getState']>,
   obj: Handle | AxeResults,
-  options: MatcherOptions = {}
+  options: MatcherOptions = {},
 ) {
   try {
     const { results, ok } = await getResults(obj, options)

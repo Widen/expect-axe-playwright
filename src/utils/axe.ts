@@ -34,6 +34,6 @@ export async function injectAxe(locator: Locator) {
 export function runAxe(locator: Locator, options: RunOptions = {}) {
   return locator.evaluate<AxeResults, RunOptions>(
     (el, options) => window.axe.run(el, options),
-    options
+    options,
   )
 }
