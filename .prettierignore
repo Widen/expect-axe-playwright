@@ -3,6 +3,7 @@
 .yarnrc.yml
 
 # Changelogs are managed by changesets
+.changeset/
 CHANGELOG.md
 
 # Misc
