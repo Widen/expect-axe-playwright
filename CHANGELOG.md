@@ -1,5 +1,11 @@
 # expect-axe-playwright
 
+## 4.1.2
+
+### Patch Changes
+
+- 1a592d7: Update `axe-reporter-html` dependency
+
 ## 4.1.1
 
 ### Patch Changes
