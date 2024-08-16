@@ -48,7 +48,7 @@
   },
   "dependencies": {
     "axe-core": "^4.9.0",
-    "axe-reporter-html": "^1.1.0",
+    "axe-reporter-html": "^2.0.0",
     "isomorphic-resolve": "^1.0.0",
     "merge-deep": "^3.0.3"
   },

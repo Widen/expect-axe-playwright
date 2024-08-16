@@ -1110,14 +1110,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axe-reporter-html@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "axe-reporter-html@npm:1.1.0"
+"axe-reporter-html@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "axe-reporter-html@npm:2.0.0"
   dependencies:
     "@types/ejs": "npm:^3.1.5"
     axe-core: "npm:^4.9.0"
     ejs: "npm:^3.1.10"
-  checksum: 10/57f996e433b38ad1f8df35f45c0cf7a34897d3c41b35b18b3043e754d9e045abb8e2021ff6e1cdbfb93c5ac97001b93ee290a69477957db17f5df59915bcabff
+  checksum: 10/c77290ece436a0ea99d994ecefb80f55f0997ebd58fb24941fe391d0ea7fe98ff86076fbeb84e466abc0e1111c16110f27a36f80df849017f3115215183be241
   languageName: node
   linkType: hard
 
@@ -1938,7 +1938,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:^7.7.0"
     "@typescript-eslint/parser": "npm:^7.7.0"
     axe-core: "npm:^4.9.0"
-    axe-reporter-html: "npm:^1.1.0"
+    axe-reporter-html: "npm:^2.0.0"
     eslint: "npm:^8.57.0"
     isomorphic-resolve: "npm:^1.0.0"
     merge-deep: "npm:^3.0.3"
