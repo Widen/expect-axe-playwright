@@ -54,7 +54,7 @@
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
-    "@playwright/test": "^1.42.3",
+    "@playwright/test": "^1.60.0",
     "@types/merge-deep": "^3.0.3",
     "@types/node": "^18.11.18",
     "@typescript-eslint/eslint-plugin": "^7.7.0",
