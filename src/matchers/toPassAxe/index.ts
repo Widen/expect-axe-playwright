@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test'
+import { test, type ExpectMatcherState } from '@playwright/test'
 import type { AxeResults, Result } from 'axe-core'
 import type { MatcherOptions } from '../../types/index.js'
 import type { Handle } from '../../utils/locator.js'
@@ -25,7 +25,7 @@ async function getResults(obj: Handle | AxeResults, options: MatcherOptions) {
 }
 
 export async function toPassAxe(
-  this: ReturnType<(typeof expect)['getState']>,
+  this: ExpectMatcherState,
   obj: Handle | AxeResults,
   options: MatcherOptions = {},
 ) {
