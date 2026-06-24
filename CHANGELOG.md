@@ -1,5 +1,12 @@
 # expect-axe-playwright
 
+## 4.1.3
+
+### Patch Changes
+
+- 907c6f1: Fix compatibility with Playwright 1.60, which renamed the 'Locator' class to
+  '\_Locator'.
+
 ## 4.1.2
 
 ### Patch Changes
